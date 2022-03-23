@@ -23,7 +23,7 @@ module.exports = (err, req, res, next) => {
     if (err.name === 'ValidationError') {
         error.message = mongoMsgToArr(error)
     }
-   /*
+   
             // Handling Mongoose duplicate key errors
             if (err.code === 11000) {
                 const message = `Duplicate ${Object.keys(err.keyValue)} entered`
@@ -32,8 +32,11 @@ module.exports = (err, req, res, next) => {
     
             // Handling wrong JWT error
             if (err.name === 'JsonWebTokenError') {
+                return res.redirect('/sign-out')
+                /*
                 const message = 'JSON Web Token is invalid. Try Again!!!'
                 error = new ErrorHandler(message, 400)
+                */
             }
     
             // Handling Expired JWT error
@@ -41,7 +44,7 @@ module.exports = (err, req, res, next) => {
                 const message = 'JSON Web Token is expired. Try Again!!!'
                 error = new ErrorHandler(message, 400)
             }
-  */
+  
     console.log(error);
     /*
     if (err.statusCode === 404) {

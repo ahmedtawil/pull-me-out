@@ -25,4 +25,25 @@ router.post('/check-national-ID', async (req, res) => {
 
 
 })
+
+router.post('/check-phone-number', async (req, res) => {
+    const { phoneNumber, id = null } = req.body
+    const found = await User.findOne({ phoneNumber })
+    if (found) {
+        if (!id) return res.status(200).json({ isExisted: true })
+        const found1 = await User.findOne({ _id: id })
+
+        if (phoneNumber == found1.phoneNumber) {
+            return res.status(200).json({ isExisted: false })
+
+        } else if (phoneNumber !== found1.formalID) {
+            return res.status(200).json({ isExisted: true })
+
+        }
+
+    } else if (!found) return res.status(200).json({ isExisted: false })
+
+
+})
+
 module.exports = router

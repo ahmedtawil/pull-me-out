@@ -15,8 +15,8 @@ const userSchema = new Schema({
     },
     nationalID: {
         type: String,
-        maxlength: [9, ''],
-        minlength: [9, ''],
+        maxlength: [10, 'رقم الهوية يتكون من 10 أرقام!'],
+        minlength: [10, 'رقم الهوية يتكون من 10 أرقام!'],
         required:true,
         validate:
             [
@@ -63,6 +63,11 @@ const userSchema = new Schema({
         type: String,
         trim: true
     },
+    password:{
+        type:String,
+        default:'123456789'
+
+    },
     birthDate: {
         type: Date,
         trim: true
@@ -84,11 +89,11 @@ const userSchema = new Schema({
         type: String,
         trim: true
     },
-    address:{
+    city:{
         type: String,
         trim: true
     },
-    tools:{
+    region:{
         type: String,
         trim: true
     },
@@ -99,7 +104,7 @@ const userSchema = new Schema({
     status:{
         type: String,
         enum:{
-            values:['pending' , 'approved' , 'blocked'],
+            values:['pending' , 'approved' , 'active','blocked'],
             message:'حالة المستخدم غير صالحة!'
         },
         trim: true
