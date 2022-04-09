@@ -24,25 +24,15 @@ const reportSchema = new Schema({
         type: String,
     },
     volunteer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    stranded: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    stranded: { type: Schema.Types.ObjectId, ref: 'Stranded', required: true },
+    evaluation: { type: Schema.Types.ObjectId, ref: 'Evaluation', required: true },
 
+    description:{
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now
     },
-    createdBy: {
-        type: Schema.Types.ObjectId, ref: 'User',
-        default: null
-    },
-    updatedBy: {
-        type: Schema.Types.ObjectId, ref: 'User',
-        default: null
-    },
-
-    updatedAt: {
-        type: Date,
-        default: null
-    }
-
 })
 module.exports = mongoose.model('Report', reportSchema)

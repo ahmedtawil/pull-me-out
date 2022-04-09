@@ -22,7 +22,6 @@ const userSchema = new Schema({
             [
                 {
                     validator: async function (nationalID) {
-                        console.log(nationalID);
                         const user = await this.constructor.findOne({ nationalID });
                         if (user) {
 
@@ -53,7 +52,7 @@ const userSchema = new Schema({
         required: [true, 'رقم الجوال مطلوب!'],
         validate: {
             validator: function (v) {
-                return !isNaN(Number(v)) && (v.indexOf('059') == 0 || v.indexOf('056') == 0)
+                return !isNaN(Number(v)) && (v.indexOf('9665') == 0 )
             },
             message: 'رقم الجوال غير صالح'
         },
@@ -89,11 +88,15 @@ const userSchema = new Schema({
         type: String,
         trim: true
     },
-    city:{
+    tools: {
         type: String,
         trim: true
     },
-    region:{
+    city: {
+        type: String,
+        trim: true
+    },
+    region: {
         type: String,
         trim: true
     },
@@ -115,10 +118,12 @@ const userSchema = new Schema({
     },
     numberOfClosedReport:{
         type: Number,
+        default:0,
         trim: true
     },
     rate:{
         type: Number,
+        default:0,
         trim: true
     },
     createdAt: {

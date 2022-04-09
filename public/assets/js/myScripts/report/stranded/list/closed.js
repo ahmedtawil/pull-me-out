@@ -1,17 +1,18 @@
 "use strict";
+
 // Class definition
-var KTRunningReportsList = function () {
+var KTClosedReportsList = function () {
     // Define shared variables
     var datatable;
     var filterMonth;
     var filterPayment;
     var table
     let dataRes
+    let  CITIES, REPORTS_TYPES
 
     let dateQuery = {
 
     }
-    let  CITIES, REPORTS_TYPES
 
     // Private functions
     var inititemList = function () {
@@ -35,13 +36,13 @@ var KTRunningReportsList = function () {
 
 
             "ajax": {
-                url: "/reports/running/data/get",
+                url: `/reports/stranded/closed/data/get/${strandedID}`,
                 "dataSrc": 'reports',
                 "dataFilter": function (res) {
                     dataRes = JSON.parse(res)
-                    $('#runningCaseCounter').text(dataRes.recordsTotal)
                     CITIES = dataRes.CITIES
                     REPORTS_TYPES = dataRes.REPORTS_TYPES        
+                    $('#closedCaseCounter').text(dataRes.recordsTotal)
 
                     return res
                 }
@@ -110,7 +111,7 @@ var KTRunningReportsList = function () {
                             <!--end::Header-->
                             <!--begin::Title-->
                             <div class="mb-2">
-                            <a href="#" class="fs-4 fw-bolder mb-1 text-gray-900 text-hover-primary">${doc.stranded.fullName}</a>
+                            <a href="#" class="fs-4 fw-bolder mb-1 text-gray-900 text-hover-primary">${moment(doc.createdAt).format('YYYY/MM/DD LTS')}</a>
                             </div>
                             <!--end::Title-->
                             <!--begin::Content-->
@@ -142,7 +143,7 @@ var KTRunningReportsList = function () {
                                             </svg>
                                         </span>
                                         <!--end::Svg Icon-->
-                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">${CITIES[doc.stranded.city] || 'مجهول'}</span>
+                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">عرض الموقع</span>
                                     </div>
                                     <!--end::Stat-->
                                     <!--begin::Stat-->
@@ -156,7 +157,7 @@ var KTRunningReportsList = function () {
                                                                                 </svg>
                                         </span>
                                         <!--end::Svg Icon-->
-                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">${doc.stranded.age}</span>
+                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">عرض الصورة</span>
                                     </div>
                                     <!--end::Stat-->
                                 </div>
@@ -353,7 +354,7 @@ var KTRunningReportsList = function () {
 
 
         init: function () {
-            table = document.querySelector('#kt_report_running_table');
+            table = document.querySelector('#kt_report_closed_table');
 
 
             if (!table) {
@@ -372,6 +373,6 @@ var KTRunningReportsList = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTRunningReportsList.init();
+    KTClosedReportsList.init();
 
 });

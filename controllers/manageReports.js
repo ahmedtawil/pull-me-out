@@ -6,21 +6,24 @@ const moment = require('moment')
 const _ = require('lodash')
 const { CITIES, REPORTS_TYPES, REPORTS_STATUS } = require('../data/constants')
 const User = require('../models/User');
+const Stranded = require('../models/Stranded');
+
 const Report = require('../models/Report');
+const Evaluation = require('../models/Evaluation');
 
 
-router.get('/new', catchAsyncErrors(async (req, res,) => {
+router.get('/new', async function (req, res, next) {
 
     res.render('report/new', { layout: false })
-}))
+})
 
-router.get('/data/get', catchAsyncErrors(async (req, res,) => {
+router.get('/data/get', async function (req, res, next) {
 
     res.render('dashboard/cpanel')
-}))
+})
 
 
-router.get('/open/data/get', catchAsyncErrors(async (req, res,) => {
+router.get('/open/data/get', async function (req, res, next) {
 
     const reportsCount = await Report.countDocuments({ status: 'open' })
     const reports = await Report.find({ status: 'open' }).sort({ createdAt: -1 }).populate('volunteer').populate('stranded')
@@ -32,10 +35,11 @@ router.get('/open/data/get', catchAsyncErrors(async (req, res,) => {
         CITIES, REPORTS_TYPES,
     })
 
-}))
+})
 
-router.get('/running/data/get', catchAsyncErrors(async (req, res,) => {
 
+
+router.get('/running/data/get', async function (req, res, next) {
     const reportsCount = await Report.countDocuments({ status: 'running' })
     const reports = await Report.find({ status: 'running' }).sort({ createdAt: -1 }).populate('volunteer').populate('stranded')
 
@@ -45,11 +49,9 @@ router.get('/running/data/get', catchAsyncErrors(async (req, res,) => {
         reports,
         CITIES, REPORTS_TYPES,
     })
+})
 
-}))
-
-router.get('/closed/data/get', catchAsyncErrors(async (req, res,) => {
-
+router.get('/closed/data/get', async function (req, res, next) {
     const reportsCount = await Report.countDocuments({ status: 'closed' })
     const reports = await Report.find({ status: 'closed' }).sort({ createdAt: -1 }).limit(20).populate('volunteer').populate('stranded')
 
@@ -60,27 +62,78 @@ router.get('/closed/data/get', catchAsyncErrors(async (req, res,) => {
         CITIES, REPORTS_TYPES,
     })
 
-}))
+
+})
+
+router.get('/stranded/open/data/get/:id', async function (req, res, next) {
+    const strandedID = req.params.id
+
+    const reportsCount = await Report.countDocuments({ stranded:strandedID , status: 'open' })
+    const reports = await Report.find({stranded:strandedID , status: 'open' }).sort({ createdAt: -1 }).populate('volunteer')
+    return res.json({
+        recordsTotal: reportsCount,
+        recordsFiltered: reportsCount,
+        reports,
+        CITIES, REPORTS_TYPES,
+    })
+
+})
 
 
-router.get('/page/get/:id', catchAsyncErrors(async (req, res,) => {
+
+router.get('/stranded/running/data/get/:id', async function (req, res, next) {
+    const strandedID = req.params.id
+
+    const reportsCount = await Report.countDocuments({stranded:strandedID , status: 'running' })
+    const reports = await Report.find({stranded:strandedID , status: 'running' }).sort({ createdAt: -1 }).populate('volunteer')
+
+    return res.json({
+        recordsTotal: reportsCount,
+        recordsFiltered: reportsCount,
+        reports,
+        CITIES, REPORTS_TYPES,
+    })
+})
+
+router.get('/stranded/closed/data/get/:id', async function (req, res, next) {
+    const strandedID = req.params.id
+
+    const reportsCount = await Report.countDocuments({ stranded:strandedID ,status: 'closed' })
+    const reports = await Report.find({stranded:strandedID , status: 'closed' }).sort({ createdAt: -1 }).limit(20).populate('volunteer')
+
+    return res.json({
+        recordsTotal: reportsCount,
+        recordsFiltered: reportsCount,
+        reports,
+        CITIES, REPORTS_TYPES,
+    })
+
+
+})
+
+
+
+router.get('/page/get/:id', async function (req, res, next) {
     const reportID = req.params.id
     if (!mongoose.isValidObjectId(reportID)) return next(new ErrorHandler('bad report id!', 400))
 
     const report = await Report.findById(reportID).populate('volunteer').populate('stranded')
     if (!report) return next(new ErrorHandler('report not found!', 404))
+    let evaluation = null
 
+    if (report.status == 'closed') {
+        evaluation = await Evaluation.findOne({ report: report._id }).sort({ createdAt: -1 })
+    }
 
-    res.render('report/view', { report, CITIES, REPORTS_TYPES, REPORTS_STATUS, moment })
+    res.render('report/view', { report, evaluation, CITIES, REPORTS_TYPES, REPORTS_STATUS, moment })
 
-}))
+})
 
-router.get('/recive/:id', catchAsyncErrors(async (req, res, next) => {
+router.get('/recive/:id', async function (req, res, next) {
     const reportID = req.params.id
     if (!mongoose.isValidObjectId(reportID)) return next(new ErrorHandler('bad report id!', 400))
 
     const action = req.query.action
-    console.log(reportID , action);
 
     const report = await Report.findById(reportID)
     if (!report) return next(new ErrorHandler('report not found!', 404))
@@ -94,38 +147,105 @@ router.get('/recive/:id', catchAsyncErrors(async (req, res, next) => {
         report.status = 'open'
         report.volunteer = null
     }
-    await report.save({validateBeforeSave:false})
+    await report.save({ validateBeforeSave: false })
     res.json({ success: true })
 
-}))
+})
+
+router.get('/search/page/get', async function (req, res, next) {
+    res.render('report/stranded/search-report' , {layout:false})
+    
+})
+router.get('/stranded/page/get/:id', async function (req, res, next) {
+    const strandedID = req.params.id
+    if (!mongoose.isValidObjectId(strandedID)) return next(new ErrorHandler('bad stranded id!', 400))
+
+    const stranded = await Stranded.findById(strandedID)
+    if (!stranded) return next(new ErrorHandler('لا يوجد نتائج للبحث!', 404))
 
 
 
-router.post('/new', catchAsyncErrors(async (req, res,) => {
-    const { fullName, nationalID, phoneNumber, birthDate, city, region, carType, type } = JSON.parse(req.body.payload)
+    res.render('report/stranded/list' , {stranded , CITIES, REPORTS_TYPES, REPORTS_STATUS, moment , layout:false } )
+    
+})
+
+
+router.post('/new', async function (req, res, next) {
+    const { fullName, nationalID, phoneNumber, birthDate, city, region, carType, type, plateInfo, description } = JSON.parse(req.body.payload)
+
     const newReportData = {
         status: 'open',
+        description,
         type,
     }
 
-    let existUser = await User.findOne({ type: 'stranded', $or: [{ nationalID }, { phoneNumber }] })
-    if (!existUser) {
-        const newUser = new User({
-            fullName, nationalID, phoneNumber, birthDate, city, region, carType,
-            type: 'stranded',
-            position: 'stranded',
+    let stranded = await Stranded.findOne({ $or: [{ fullName }, { phoneNumber }] })
+
+    if (!stranded) {
+        const newStranded = new Stranded({
+            fullName, nationalID, birthDate, phoneNumber, city, region, carType, plateInfo,
             status: 'active',
         })
-        newReportData.stranded = newUser._id
-        await newUser.save()
-        existUser = newUser
+        newReportData.stranded = newStranded._id
+        await newStranded.save()
+        stranded = newStranded
+    } else {
+        _.assign(stranded, {
+            city, region, carType, plateInfo
+        })
+        await stranded.save()
+
     }
 
-    newReportData.stranded = existUser._id
+    newReportData.stranded = stranded._id
     const newReport = new Report(newReportData)
     await newReport.save({ validateBeforeSave: false })
     res.end()
-}))
+
+})
+
+
+router.post('/rate/:id', async function (req, res, next) {
+    const reportID = req.params.id
+    if (!mongoose.isValidObjectId(reportID)) return next(new ErrorHandler('bad report id!', 400))
+
+    const report = await Report.findById(reportID)
+    if (!report) return next(new ErrorHandler('report not found!', 404))
+
+    
+    const volunteer = await User.findById(report.volunteer)
+
+    if (!volunteer) return next(new ErrorHandler('volunteer not found!', 404))
+
+    const { rate = 5, description = '' } = JSON.parse(req.body.payload)
+
+    const newEvaluation = new Evaluation({
+        type: 'volToSt',
+        rate,
+        description,
+        report: report._id,
+        createdBy: req.user._id
+    })
+    await newEvaluation.save()
+
+    report.status = 'closed'
+    report.evaluation = newEvaluation._id
+    await report.save()
+
+    volunteer.numberOfClosedReport++
+    await volunteer.save({validateBeforeSave:false})
+    res.end()
+})
+router.post('/stranded/search', async function (req, res, next) {
+    const {query} = req.body
+
+    const searchQuery = { $or: [{ phoneNumber: query , email:query  }] }
+    const stranded = await Stranded.findOne(searchQuery)
+    if (!stranded) return next(new ErrorHandler('لا يوجد نتائج للبحث!', 404))
+    console.log(stranded);
+    res.json({stranded:stranded._id})
+
+})
 
 
 

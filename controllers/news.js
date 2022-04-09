@@ -6,8 +6,8 @@ const moment = require('moment')
 const _ = require('lodash')
 
 
-router.get('/dashboard', async function (req, res, next) {
-    res.render('report/list')
+router.get('/page/get', async function (req, res, next) {
+    res.render('news/list' , {layout:false})
 })
 
 

@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-var KTSigninGeneral = function() {
+var KTReportsSearch = function() {
     // Elements
     var form;
     var submitButton;
@@ -20,20 +20,13 @@ var KTSigninGeneral = function() {
 			form,
 			{
 				fields: {					
-					'email': {
+					'query': {
                         validators: {
 							notEmpty: {
-								message: 'البريد الإلكتروني مطلوب'
+								message: 'الإستعلام مطلوب.'
 							}
 						}
-					},
-                    'password': {
-                        validators: {
-                            notEmpty: {
-                                message: 'كلمة المرور مطلوبة'
-                            }
-                        }
-                    } 
+					}
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),
@@ -60,33 +53,15 @@ var KTSigninGeneral = function() {
                     // Disable submit button whilst loading
                     submitButton.disabled = true;
                     const payload = {
-                        email: $("input[name=email]").val(),
-                        password: $("input[name=password]").val(),
-                       
+                        query: $("input[name=query]").val(),                       
                     }
 
 
-                    $.post('/sign-in', payload).then(recipientID=> {
+                    $.post('/reports/stranded/search', payload).then(res=> {
                         submitButton.removeAttribute('data-kt-indicator');
+                        window.location = `/reports/stranded/page/get/${res.stranded}`
 
-                        Swal.fire({
-                            text: "تم تسجيل الدخول بنجاح!",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "حسنا",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        }).then(function (result) {
-                            if (result.isConfirmed) {
- 
-                                // Enable submit button after loading
-                                submitButton.disabled = false;
-
-                                // Redirect to customers list page
-                                window.location = `/dashboard`
-                            }
-                        })
+                      
                     }).catch(err=> {
                         Swal.fire({
                             text: errDisplay(err),
@@ -97,6 +72,7 @@ var KTSigninGeneral = function() {
                                 confirmButton: "btn btn-primary"
                             }
                         });
+                        $('#query').val('')
                        
                         submitButton.removeAttribute('data-kt-indicator');
                          // Enable submit button after loading
@@ -127,8 +103,9 @@ var KTSigninGeneral = function() {
     return {
         // Initialization
         init: function() {
-            form = document.querySelector('#kt_sign_in_form');
-            submitButton = document.querySelector('#kt_sign_in_submit');
+            form = document.querySelector('#kt_reports_search_form');
+            submitButton = document.querySelector('#kt_reports_search_submit');
+            console.log(form , submitButton);
             
             handleForm();
         }
@@ -137,5 +114,5 @@ var KTSigninGeneral = function() {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function() {
-    KTSigninGeneral.init();
+    KTReportsSearch.init();
 });

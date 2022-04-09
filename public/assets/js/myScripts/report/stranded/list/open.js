@@ -1,17 +1,17 @@
 "use strict";
 // Class definition
-var KTRunningReportsList = function () {
+var KTOpenReportsList = function () {
     // Define shared variables
     var datatable;
     var filterMonth;
     var filterPayment;
     var table
     let dataRes
+    let  CITIES, REPORTS_TYPES
 
     let dateQuery = {
 
     }
-    let  CITIES, REPORTS_TYPES
 
     // Private functions
     var inititemList = function () {
@@ -35,13 +35,13 @@ var KTRunningReportsList = function () {
 
 
             "ajax": {
-                url: "/reports/running/data/get",
+                url: `/reports/stranded/open/data/get/${strandedID}`,
                 "dataSrc": 'reports',
                 "dataFilter": function (res) {
                     dataRes = JSON.parse(res)
-                    $('#runningCaseCounter').text(dataRes.recordsTotal)
                     CITIES = dataRes.CITIES
                     REPORTS_TYPES = dataRes.REPORTS_TYPES        
+                    $('#openCaseCounter').text(dataRes.recordsTotal)
 
                     return res
                 }
@@ -51,6 +51,7 @@ var KTRunningReportsList = function () {
             columns: [
                 { data: '' ,
                 render: function (data, type, doc) {
+
                     return `  <!--begin::Card-->
                     <div class="card mb-6 mb-xl-9">
                         <!--begin::Card body-->
@@ -96,7 +97,6 @@ var KTRunningReportsList = function () {
                                             <a href="/reports/page/get/${doc._id}" class="menu-link px-3">عرض</a>
                                         </div>
                                         <!--end::Menu item-->
-
                                          <!--begin::Menu item-->
                                          <div class="menu-item px-3">
                                             <a href="#" class="menu-link px-3">حذف</a>
@@ -110,7 +110,7 @@ var KTRunningReportsList = function () {
                             <!--end::Header-->
                             <!--begin::Title-->
                             <div class="mb-2">
-                            <a href="#" class="fs-4 fw-bolder mb-1 text-gray-900 text-hover-primary">${doc.stranded.fullName}</a>
+                                <a href="#" class="fs-4 fw-bolder mb-1 text-gray-900 text-hover-primary">${moment(doc.createdAt).format('YYYY/MM/DD LTS')}</a>
                             </div>
                             <!--end::Title-->
                             <!--begin::Content-->
@@ -118,15 +118,7 @@ var KTRunningReportsList = function () {
                             <!--end::Content-->
                             <!--begin::Footer-->
                             <div class="d-flex flex-stack flex-wrapr">
-                                <!--begin::Users-->
-                                <div class="symbol-group symbol-hover my-1">
-                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                        title="${doc.volunteer.fullName}">
-                                        <span class="symbol-label bg-warning text-inverse-warning fw-bolder">${doc.volunteer.fullName[0]}</span>
-                                    </div>
-                                  
-                                </div>
-                                <!--end::Users-->
+                             
                                 <!--begin::Stats-->
                                 <div class="d-flex my-1">
                                     <!--begin::Stat-->
@@ -142,7 +134,7 @@ var KTRunningReportsList = function () {
                                             </svg>
                                         </span>
                                         <!--end::Svg Icon-->
-                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">${CITIES[doc.stranded.city] || 'مجهول'}</span>
+                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">عرض الموقع</span>
                                     </div>
                                     <!--end::Stat-->
                                     <!--begin::Stat-->
@@ -156,7 +148,7 @@ var KTRunningReportsList = function () {
                                                                                 </svg>
                                         </span>
                                         <!--end::Svg Icon-->
-                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">${doc.stranded.age}</span>
+                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">عرض الصورة</span>
                                     </div>
                                     <!--end::Stat-->
                                 </div>
@@ -353,7 +345,7 @@ var KTRunningReportsList = function () {
 
 
         init: function () {
-            table = document.querySelector('#kt_report_running_table');
+            table = document.querySelector('#kt_report_open_table');
 
 
             if (!table) {
@@ -372,6 +364,6 @@ var KTRunningReportsList = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTRunningReportsList.init();
+    KTOpenReportsList.init();
 
 });

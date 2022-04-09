@@ -15,6 +15,10 @@ const utilsController = require('./controllers/utils')
 const manageVolunteersController = require('./controllers/manageVolunteers')
 const manageAdminsController = require('./controllers/manageAdmins')
 const manageReportsController = require('./controllers/manageReports')
+const manageUsersController = require('./controllers/manageUsersController')
+
+const landingController = require('./controllers/landing')
+const newsController = require('./controllers/news')
 
 
 const app = express();
@@ -31,31 +35,24 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 
+
 // routes
 app.use('/' , authController)
+app.use('/' , landingController)
+
 app.use('/utils', utilsController)
 
 // auth middleware
 app.use(isAuthenticatedUser)
 
 
-// Admin
 app.use('/reports', manageReportsController)
 app.use('/', dashboardController)
-
 app.use('/admins', manageAdminsController)
-
-
-// Volunteer
-app.use('/', dashboardController)
 app.use('/volunteers', manageVolunteersController)
+app.use('/users', manageUsersController)
 
-
-
-
-
-
-
+app.use('/news', newsController)
 
 
 // Middleware to handle errors

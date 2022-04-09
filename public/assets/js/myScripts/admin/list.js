@@ -3,7 +3,7 @@ let tableQuery = {
 
 }
 // Class definition
-var KTitemsTable = function () {
+var KTadminsTable = function () {
     // Define shared variables
     var datatable;
     var filterMonth;
@@ -16,7 +16,7 @@ var KTitemsTable = function () {
     }
 
     // Private functions
-    var inititemList = function () {
+    var initadminList = function () {
         // Set date data order
         const tableRows = table.querySelectorAll('tbody tr');
 
@@ -34,8 +34,8 @@ var KTitemsTable = function () {
 
 
             "ajax": {
-                url: "/items/data/get",
-                "dataSrc": 'items',
+                url: "/admins/data/get",
+                "dataSrc": 'admins',
                 "dataFilter": function (res) {
                     dataRes = JSON.parse(res)
                     return res
@@ -44,23 +44,65 @@ var KTitemsTable = function () {
 
 
             columns: [
-                { data: 'title' },
                 {
-                    data: 'colors',
+                    data: '',
                     render: function (data, type, doc) {
-                        let span
-                        return data.map(color => {
-                            return span = `<span class="badge badge-light-info fw-bolder m-25px"> اللون: ${color.color}</span>` + `<span class="symbol-label">
-                    <a href="${color.image}"target="_blank" class="symbol symbol-50px m-10px">
-                        <span class="symbol-label m-10px" style="background-image:url(${color.image});"></span>
-                    </a>
-                    </span>`
-
-
-                        })
+                        return `<div class="d-flex align-items-center text-start">
+                    <!--begin::Wrapper-->
+                    <div class="me-5 position-relative">
+                        <!--begin::Avatar-->
+                        <div class="symbol symbol-35px symbol-circle">
+                            <span class="symbol-label bg-light-danger text-danger fw-bold">${doc.fullName[0]}</span>
+                        </div>
+                        <!--end::Avatar-->
+                    </div>
+                    <!--end::Wrapper-->
+                    <!--begin::Info-->
+                    <div class="d-flex flex-column justify-content-center">
+                        <a href="" class="mb-1 text-gray-800 text-hover-primary">${doc.fullName}</a>
+                        <div class="fw-bold fs-6 text-gray-400">${doc.email}</div>
+                    </div>
+                    <!--end::Info-->
+                </div>`
 
                     }
                 },
+                {
+                    data: 'nationalID',
+
+                },
+                {
+                    data: 'phoneNumber',
+                },
+                {
+                    data: 'birthDate',
+                    render: function (data, type, doc) {
+                        return moment(data).format('YYYY/MM/DD')
+
+                    }
+                },
+                {
+                    data: 'age',
+
+                },
+
+                {
+                    data: 'createdAt',
+                    render: function (data, type, doc) {
+                        return moment(data).format('YYYY/MM/DD')
+
+                    }
+                },
+                {
+                    data: 'carType',
+                },
+                {
+                    data: 'tools',
+                },
+                {
+                    data: 'address',
+                },
+               
                 {
                     data: '',
                     render: function (data, type, doc) {
@@ -81,6 +123,12 @@ var KTitemsTable = function () {
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                         data-kt-menu="true">
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                         <a href="/user/profile/${doc._id}" class="menu-link px-3">البروفايل</a>
+
+                        </div>
+                        <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
                          <a href="#" class="menu-link px-3">حذف</a>
@@ -107,7 +155,7 @@ var KTitemsTable = function () {
 
     // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
     var handleSearchDatatable = () => {
-        const filterSearch = document.querySelector('[data-kt-item-table-filter="search"]');
+        const filterSearch = document.querySelector('[data-kt-admin-table-filter="search"]');
         filterSearch.addEventListener('keyup', function (e) {
             tableQuery.search = e.target.value
             datatable.search(JSON.stringify(tableQuery)).draw();
@@ -116,9 +164,9 @@ var KTitemsTable = function () {
     // Filter Datatable
     var handleFilter = function () {
         // Select filter options
-        const filterForm = document.querySelector('[data-kt-item-table-filter="form"]');
-        const filterButton = filterForm.querySelector('[data-kt-item-table-filter="filter"]');
-        const resetButton = filterForm.querySelector('[data-kt-item-table-filter="reset"]');
+        const filterForm = document.querySelector('[data-kt-admin-table-filter="form"]');
+        const filterButton = filterForm.querySelector('[data-kt-admin-table-filter="filter"]');
+        const resetButton = filterForm.querySelector('[data-kt-admin-table-filter="reset"]');
         const selectOptions = filterForm.querySelectorAll('select');
         const datepicker = filterForm.querySelector("[name=date]");
 
@@ -214,7 +262,7 @@ var KTitemsTable = function () {
     // Delete item
     var handleDeleteRows = () => {
         // Select all delete buttons
-        const deleteButtons = table.querySelectorAll('[data-kt-item-table-filter="delete_row"]');
+        const deleteButtons = table.querySelectorAll('[data-kt-admin-table-filter="delete_row"]');
 
         deleteButtons.forEach(d => {
             // Delete button on click
@@ -277,14 +325,14 @@ var KTitemsTable = function () {
 
 
         init: function () {
-            table = document.querySelector('#kt_items_table');
+            table = document.querySelector('#kt_admins_table');
 
 
             if (!table) {
                 return;
             }
 
-            inititemList();
+            initadminList();
             handleSearchDatatable();
             handleDeleteRows();
             handleFilter();
@@ -296,6 +344,6 @@ var KTitemsTable = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTitemsTable.init();
+    KTadminsTable.init();
 
 });

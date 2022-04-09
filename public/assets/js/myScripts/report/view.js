@@ -44,6 +44,7 @@ var KTModalReportView = function () {
                     }
 
                 }
+                location.reload()
             });
 
 

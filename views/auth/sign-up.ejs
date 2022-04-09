@@ -159,7 +159,8 @@ License: For each use you must have a valid license purchased only from above li
 					<!--begin::Wrapper-->
 					<div class="w-lg-700px p-10 p-lg-15 mx-auto">
 						<!--begin::Form-->
-						<form class="my-auto pb-5" novalidate="novalidate" autocomplete="nope" id="kt_create_account_form">
+						<form class="my-auto pb-5" novalidate="novalidate" autocomplete="nope"
+							id="kt_create_account_form" autocomplete="off">
 							<!--begin::Step 1-->
 							<div class="current" data-kt-stepper-element="content">
 								<!--begin::Wrapper-->
@@ -208,13 +209,13 @@ License: For each use you must have a valid license purchased only from above li
 										</ol>
 									</div>
 									<div class="fv-row m-5 ">
-											<!--begin::Switch-->
-											<label class="form-check form-switch form-check-custom form-check-solid">
-												<input class="form-check-input" name="accept" type="checkbox">
-												<span class="form-check-label fw-bold text-muted m-5">أوافق على سياسة
-													الإستخدام.</span>
-											</label>
-											<!--end::Switch-->
+										<!--begin::Switch-->
+										<label class="form-check form-switch form-check-custom form-check-solid">
+											<input class="form-check-input" name="accept" type="checkbox">
+											<span class="form-check-label fw-bold text-muted m-5">أوافق على سياسة
+												الإستخدام.</span>
+										</label>
+										<!--end::Switch-->
 									</div>
 
 									<!--end::Input group-->
@@ -247,7 +248,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Label-->
 										<!--begin::Input-->
 										<input type="text" class="form-control form-control-lg form-control-solid"
-											name="nationalID" placeholder="" value="" />
+											name="nationalID" placeholder="رقم الهوية الوطنية." value="" />
 										<!--end::Input-->
 									</div>
 									<!--end::Input group-->
@@ -258,7 +259,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Label-->
 										<!--begin::Input-->
 										<input type="text" class="form-control form-control-lg form-control-solid"
-											name="fullName" placeholder="" value="" />
+											name="fullName" placeholder="الاسم رباعي." value="" />
 										<!--end::Input-->
 									</div>
 									<!--end::Input group-->
@@ -269,7 +270,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Label-->
 										<!--begin::Input-->
 										<input type="text" class="form-control form-control-lg form-control-solid"
-											name="phoneNumber" placeholder="" value="" />
+											placeholder="9665xxxxxxxx" name="phoneNumber">
 										<!--end::Input-->
 									</div>
 									<!--end::Input group-->
@@ -293,27 +294,39 @@ License: For each use you must have a valid license purchased only from above li
 											<!--end::Label-->
 											<!--begin::Input wrapper-->
 											<div class="position-relative mb-3">
-												<input class="form-control form-control-lg form-control-solid" value="" type="password" placeholder="" name="password" autocomplete="nope">
-												<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+												<input class="form-control form-control-lg form-control-solid" value=""
+													type="password" placeholder="كلمة المرور." name="password"
+													autocomplete="nope">
+												<span
+													class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+													data-kt-password-meter-control="visibility">
 													<i class="bi bi-eye-slash fs-2"></i>
 													<i class="bi bi-eye fs-2 d-none"></i>
 												</span>
 											</div>
 											<!--end::Input wrapper-->
 											<!--begin::Meter-->
-											<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
-												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+											<div class="d-flex align-items-center mb-3"
+												data-kt-password-meter-control="highlight">
+												<div
+													class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
+												</div>
+												<div
+													class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
+												</div>
+												<div
+													class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
+												</div>
 											</div>
 											<!--end::Meter-->
 										</div>
 										<!--end::Wrapper-->
 										<!--begin::Hint-->
-										<div class="text-muted">استخدم 8 أحرف أو أكثر مع مزيج من الأحرف والأرقام والرموز.</div>
-											
+										<div class="text-muted">استخدم 8 أحرف أو أكثر مع مزيج من الأحرف والأرقام
+											والرموز.</div>
+
 										<!--end::Hint-->
-								</div>
+									</div>
 								</div>
 								<!--end::Wrapper-->
 							</div>
@@ -342,21 +355,53 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Label-->
 										<!--begin::Input-->
 										<input type="email" class="form-control form-control-lg form-control-solid"
-											name="email" placeholder="" value="" style="direction: rtl" />
+											name="email" placeholder="البريد الإلكتروني." value=""
+											style="direction: rtl" />
 										<!--end::Input-->
 									</div>
 									<!--end::Input group-->
-										<!--begin::Input group-->
-										<div class="mb-7 fv-row">
-											<!--begin::Label-->
-											<label class="form-label mb-3">العنوان التفصيلي</label>
-											<!--end::Label-->
-											<!--begin::Input-->
-											<input type="text" class="form-control form-control-lg form-control-solid"
-												name="address" placeholder="" value="" />
-											<!--end::Input-->
-										</div>
-										<!--end::Input group-->
+
+
+									<!--begin::Input group-->
+									<div class="fv-row mb-7 fv-plugins-icon-container">
+										<!--begin::Label-->
+										<label class="fs-6 fw-bold mb-2">
+											<span class="required">المدينة</span>
+										</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<select name="city" aria-label="أختر المدينة" data-control="select2"
+											data-placeholder="أختر المدينة" 
+											class="form-select form-select-solid fw-bolder">
+											<option value="jeddah">جده</option>
+											<option value="mecca">مكه</option>
+											<option value="medina">المدينة المنورة</option>
+											<option value="taif">الطائف</option>
+											<option value="yanbu">ينبع</option>
+											<option value="riyadh">الرياض</option>
+											<option value="dammam">الدمام</option>
+											<option value="khobar">الخبر</option>
+											<option value="albahah">الباحة</option>
+
+										</select>
+
+										<!--end::Input-->
+										<div class="fv-plugins-message-container invalid-feedback"></div>
+									</div>
+									<!--end::Input group-->
+
+
+									<!--begin::Input group-->
+									<div class="mb-7 fv-row">
+										<!--begin::Label-->
+										<label class="form-label mb-3">العنوان التفصيلي</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" class="form-control form-control-lg form-control-solid"
+											name="address" placeholder="" value="" />
+										<!--end::Input-->
+									</div>
+									<!--end::Input group-->
 									<!--begin::Input group-->
 									<div class="mb-7 fv-row">
 										<!--begin::Label-->
@@ -364,7 +409,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Label-->
 										<!--begin::Input-->
 										<input type="text" class="form-control form-control-lg form-control-solid"
-											name="carType" placeholder="" value=""  />
+											name="carType" placeholder="" value="" />
 										<!--end::Input-->
 									</div>
 									<!--end::Input group-->
@@ -376,7 +421,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Label-->
 										<!--begin::Input-->
 										<input type="text" class="form-control form-control-lg form-control-solid"
-											name="tools" placeholder="" value=""  />
+											name="tools" placeholder="" value="" />
 										<!--end::Input-->
 									</div>
 									<!--end::Input group-->
@@ -425,7 +470,9 @@ License: For each use you must have a valid license purchased only from above li
 												<!--begin::Content-->
 												<div class="fw-bold">
 													<h4 class="text-gray-900 fw-bolder">ملاحظة هامة!</h4>
-													<div class="fs-6 text-gray-700">بعد حفظ البيانات سيتم رفع الطلب إلى الإدارة للموافقة عليه وبعد المعاينة سيتم إرسال حالة الطلب وبيانات تسجيل الدخول الى البريد الإلكتروني الخاص بك.
+													<div class="fs-6 text-gray-700">بعد حفظ البيانات سيتم رفع الطلب إلى
+														الإدارة للموافقة عليه وبعد المعاينة سيتم إرسال حالة الطلب
+														وبيانات تسجيل الدخول الى البريد الإلكتروني الخاص بك.
 													</div>
 												</div>
 												<!--end::Content-->
@@ -466,16 +513,19 @@ License: For each use you must have a valid license purchased only from above li
 										data-kt-stepper-action="submit">
 										<span class="indicator-label">حفظ
 											<!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-										<!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
-										<span class="svg-icon svg-icon-4 me-1">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-												viewBox="0 0 24 24" fill="none">
-												<polygon points="0 0 24 0 24 24 0 24"/>
-												<path d="M17,4 L6,4 C4.79111111,4 4,4.7 4,6 L4,18 C4,19.3 4.79111111,20 6,20 L18,20 C19.2,20 20,19.3 20,18 L20,7.20710678 C20,7.07449854 19.9473216,6.94732158 19.8535534,6.85355339 L17,4 Z M17,11 L7,11 L7,4 L17,4 L17,11 Z" fill="#000000" fill-rule="nonzero"/>
-												<rect fill="#000000" opacity="0.3" x="12" y="4" width="3" height="5" rx="0.5"/>
-																					</svg>
-										</span>
-										<!--end::Svg Icon-->
+											<!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
+											<span class="svg-icon svg-icon-4 me-1">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none">
+													<polygon points="0 0 24 0 24 24 0 24" />
+													<path
+														d="M17,4 L6,4 C4.79111111,4 4,4.7 4,6 L4,18 C4,19.3 4.79111111,20 6,20 L18,20 C19.2,20 20,19.3 20,18 L20,7.20710678 C20,7.07449854 19.9473216,6.94732158 19.8535534,6.85355339 L17,4 Z M17,11 L7,11 L7,4 L17,4 L17,11 Z"
+														fill="#000000" fill-rule="nonzero" />
+													<rect fill="#000000" opacity="0.3" x="12" y="4" width="3" height="5"
+														rx="0.5" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
 										</span>
 										<span class="indicator-progress">الرجاء الإنتظار ...
 											<span

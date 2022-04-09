@@ -114,24 +114,18 @@
                         </div>
                         <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
                             <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                                <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
+                                <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
                                 <span class="svg-icon svg-icon-4 me-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none">
-                                        <rect x="0" y="0" width="24" height="24"/>
-                                        <rect fill="#000000" opacity="0.3" x="4" y="4" width="4" height="4" rx="2"/>
-                                        <rect fill="#000000" x="4" y="10" width="4" height="4" rx="2"/>
-                                        <rect fill="#000000" x="10" y="4" width="4" height="4" rx="2"/>
-                                        <rect fill="#000000" x="10" y="10" width="4" height="4" rx="2"/>
-                                        <rect fill="#000000" x="16" y="4" width="4" height="4" rx="2"/>
-                                        <rect fill="#000000" x="16" y="10" width="4" height="4" rx="2"/>
-                                        <rect fill="#000000" x="4" y="16" width="4" height="4" rx="2"/>
-                                        <rect fill="#000000" x="10" y="16" width="4" height="4" rx="2"/>
-                                        <rect fill="#000000" x="16" y="16" width="4" height="4" rx="2"/>
-                                                                    </svg>
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <path
+                                            d="M6,2 L18,2 C19.6568542,2 21,3.34314575 21,5 L21,19 C21,20.6568542 19.6568542,22 18,22 L6,22 C4.34314575,22 3,20.6568542 3,19 L3,5 C3,3.34314575 4.34314575,2 6,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z"
+                                            fill="#000000" />
+                                    </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <%= report.stranded.nationalID %>
+                                <%= report.stranded.region %>
                             </a>
 
                             <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
@@ -139,33 +133,68 @@
                                 <span class="svg-icon svg-icon-4 me-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none">
-                                        <rect x="0" y="0" width="24" height="24"/>
-                                        <path d="M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 Z M14.1654881,7.35483745 L9.61055177,10.3622525 C9.47921741,10.4489666 9.39637436,10.592455 9.38694497,10.7495509 L9.05991526,16.197949 C9.04337012,16.4735952 9.25341309,16.7104632 9.52905936,16.7270083 C9.63705011,16.7334903 9.74423017,16.7047714 9.83451193,16.6451626 L14.3894482,13.6377475 C14.5207826,13.5510334 14.6036256,13.407545 14.613055,13.2504491 L14.9400847,7.80205104 C14.9566299,7.52640477 14.7465869,7.28953682 14.4709406,7.27299168 C14.3629499,7.26650974 14.2557698,7.29522855 14.1654881,7.35483745 Z" fill="#000000"/>
-                                                                    </svg>
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <path
+                                            d="M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 Z M14.1654881,7.35483745 L9.61055177,10.3622525 C9.47921741,10.4489666 9.39637436,10.592455 9.38694497,10.7495509 L9.05991526,16.197949 C9.04337012,16.4735952 9.25341309,16.7104632 9.52905936,16.7270083 C9.63705011,16.7334903 9.74423017,16.7047714 9.83451193,16.6451626 L14.3894482,13.6377475 C14.5207826,13.5510334 14.6036256,13.407545 14.613055,13.2504491 L14.9400847,7.80205104 C14.9566299,7.52640477 14.7465869,7.28953682 14.4709406,7.27299168 C14.3629499,7.26650974 14.2557698,7.29522855 14.1654881,7.35483745 Z"
+                                            fill="#000000" />
+                                    </svg>
                                 </span>
                                 <!--end::Svg Icon-->
                                 <%= report.stranded.carType %>
                             </a>
-                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
-                                <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
+
+                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                                <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
                                 <span class="svg-icon svg-icon-4 me-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none">
-                                        <rect x="0" y="0" width="24" height="24"/>
-                                        <path d="M6,2 L18,2 C19.6568542,2 21,3.34314575 21,5 L21,19 C21,20.6568542 19.6568542,22 18,22 L6,22 C4.34314575,22 3,20.6568542 3,19 L3,5 C3,3.34314575 4.34314575,2 6,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z" fill="#000000"/>
-                                                                    </svg>
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <rect fill="#000000" opacity="0.3" x="4" y="4" width="4" height="4" rx="2" />
+                                        <rect fill="#000000" x="4" y="10" width="4" height="4" rx="2" />
+                                        <rect fill="#000000" x="10" y="4" width="4" height="4" rx="2" />
+                                        <rect fill="#000000" x="10" y="10" width="4" height="4" rx="2" />
+                                        <rect fill="#000000" x="16" y="4" width="4" height="4" rx="2" />
+                                        <rect fill="#000000" x="16" y="10" width="4" height="4" rx="2" />
+                                        <rect fill="#000000" x="4" y="16" width="4" height="4" rx="2" />
+                                        <rect fill="#000000" x="10" y="16" width="4" height="4" rx="2" />
+                                        <rect fill="#000000" x="16" y="16" width="4" height="4" rx="2" />
+                                    </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <%= report.stranded.region %>
+                                <%= report.stranded.plateInfo %>
                             </a>
+
+
+                          
                         </div>
                         <!--end::Info-->
+                        <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
+                            <%= report.description %>
 
+                        </div>
+                        <% if (report.status !='open') { %>
+
+                        <div class="d-flex flex-wrap fw-bold fs-6 pe-2">
+
+                             <!--begin::Users-->
+                             <div class="symbol-group symbol-hover">
+                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
+                                    title="<%= report.volunteer.fullName %>">
+                                    <span class="symbol-label bg-warning text-inverse-warning fw-bolder"><%= report.volunteer.fullName[0] %></span>
+                                </div>
+                              
+                            </div>
+                            <!--end::Users-->
+
+                        </div>
+                        <% } %>
                     </div>
+                    
                     <!--end::User-->
                     <!--begin::Actions-->
                     <div class="d-flex my-4">
-                        <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_recive_button"
+                        <% if (report.status !='closed') { %>
+                            <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_recive_button"
                             recived="<%= (report.status == 'running') ? true : false %>">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
                             <span class="svg-icon svg-icon-3 d-none">
@@ -186,6 +215,8 @@
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             <!--end::Indicator-->
                         </a>
+                        <% } %>
+                     
                         <!--begin::Menu-->
                         <div class="me-0">
                             <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
@@ -200,17 +231,21 @@
                                     <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">الخيارات</div>
                                 </div>
                                 <!--end::Heading-->
+                                <% if (report.status == 'running') { %>
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_report_rate" class="menu-link flex-stack px-3">إغلاق البلاغ</a>                                    
+                                </div>
+                                <!--end::Menu item-->
+                                <% } %>
+                               
+
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a href="#" class="menu-link px-3">حذف</a>
                                 </div>
                                 <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link flex-stack px-3">تقييم المنقذ
-                                    </a>
-                                </div>
-                                <!--end::Menu item-->
+                               
 
                             </div>
                             <!--end::Menu 3-->
@@ -220,7 +255,7 @@
                     <!--end::Actions-->
                 </div>
                 <!--end::Title-->
-                
+
                 <!--begin::Stats-->
                 <div class="d-flex flex-wrap flex-stack">
                     <!--begin::Wrapper-->
@@ -229,13 +264,65 @@
                     <!--end::Wrapper-->
                     <!--begin::Progress-->
                     <div class="d-flex align-items-center w-200px w-sm-300px flex-column">
-                        <div class="d-flex flex-stack flex-wrapr  mb-3">
-                            <span class="fw-bold fs-6 text-gray-400 mx-5">توقيت البلاغ :</span>
-                            <span class="fw-bolder fs-6">
-                                <%= moment(report.createdAt).format('YYYY/MM/DD LTS') %>
-                            </span>
-
-                        </div>
+                        <% if (evaluation != null) { %>
+                            <div class="d-flex flex-stack flex-wrapr  mb-3">
+                                <span class="fw-bold fs-6 text-gray-400 mx-5">تقييم المنقذ</span>
+                                <style>
+                                    svg {
+                                        height: 25px !important;
+                                        width: 25px !important;
+                                    }
+                                </style>
+                                <span class="fw-bolder fs-6">
+                                    <div class="rating">
+                                        <div class="rating-label <%= (evaluation.rate >= 1) ? 'checked' : '' %>">
+                                            <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path
+                                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                        fill="black"></path>
+                                                </svg></span>
+                                        </div>
+                                        <div class="rating-label <%= (evaluation.rate >= 2) ? 'checked' : '' %>"">
+                                            <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path
+                                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                        fill="black"></path>
+                                                </svg></span>
+                                        </div>
+                                        <div class="rating-label <%= (evaluation.rate >= 3) ? 'checked' : '' %>"">
+                                            <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path
+                                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                        fill="black"></path>
+                                                </svg></span>
+                                        </div>
+                                        <div class="rating-label <%= (evaluation.rate >= 4) ? 'checked' : '' %>"">
+                                            <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path
+                                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                        fill="black"></path>
+                                                </svg></span>
+                                        </div>
+                                        <div class="rating-label <%= (evaluation.rate >= 5) ? 'checked' : '' %>"">
+                                            <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path
+                                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                        fill="black"></path>
+                                                </svg></span>
+                                        </div>
+                                    </div>
+    
+    
+                                </span>
+    
+                            </div>
+                        <% } %>
+                      
                         <div class="d-flex flex-stack flex-wrapr mb-3">
                             <span class="fw-bold fs-6 text-gray-400 mx-5">توقيت البلاغ :</span>
                             <span class="fw-bolder fs-6">
@@ -245,7 +332,7 @@
                         </div>
                     </div>
                     <!--end::Progress-->
-                    
+
                 </div>
                 <!--end::Stats-->
             </div>
@@ -254,12 +341,178 @@
         <!--end::Details-->
     </div>
 </div>
+
 <div class="card my-5 mb-xl-10">
     <div class="card-body pt-9 pb-0">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1702.0029695054045!2d39.381957287002564!3d31.441503442722134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14fd8354e3f7d91d%3A0x2b9fcfc6f7c1a305!2z2LPZiNio2LEg2YXYp9ix2YPYqiDYp9io2Ygg2LHYp9im2K8g2KfZhNit2KfYrA!5e0!3m2!1sen!2s!4v1648031182659!5m2!1sen!2s"  style="border:0;width: 100%;height: 600px;" allowfullscreen="" loading="lazy"></iframe>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1702.0029695054045!2d39.381957287002564!3d31.441503442722134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14fd8354e3f7d91d%3A0x2b9fcfc6f7c1a305!2z2LPZiNio2LEg2YXYp9ix2YPYqiDYp9io2Ygg2LHYp9im2K8g2KfZhNit2KfYrA!5e0!3m2!1sen!2s!4v1648031182659!5m2!1sen!2s"
+            style="border:0;width: 100%;height: 600px;" allowfullscreen="" loading="lazy"></iframe>
 
     </div>
 </div>
+
+<!--begin::Modals-->
+<div class="modal fade" id="kt_modal_report_rate" tabindex="-1" aria-hidden="true">
+
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-450px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Form-->
+            <form class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#" id="kt_modal_report_rate_form"
+                autocomplete="off">
+                <!--begin::Modal header-->
+                <div class="modal-header" id="kt_modal_report_rate_header">
+                    <!--begin::Modal title-->
+                    <h2 class="fw-bolder">إغلاق البلاغ</h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div id="kt_modal_report_rate_close" class="btn btn-icon btn-sm btn-active-icon-primary">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="black"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="black"></rect>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body  py-10 px-lg-17">
+                    <!--begin::Scroll-->
+                    <div class="scroll-y me-n7 pe-7" id="kt_modal_report_rate_scroll" data-kt-scroll="true"
+                        data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
+                        data-kt-scroll-dependencies="#kt_modal_report_rate_header"
+                        data-kt-scroll-wrappers="#kt_modal_report_rate_scroll" data-kt-scroll-offset="300px"
+                        style="max-height: 647px;">
+
+                        <div class="fv-row mb-3 fv-plugins-icon-container">
+                            <div class="rating d-flex justify-content-center">
+                                <!--begin::Star 1-->
+                                <label class="rating-label" for="kt_rating_input_1">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
+                                    <span class="svg-icon svg-icon-1" style="width: 50px !important;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                fill="black"></path>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </label>
+                                <input class="rating-input" name="rating" value="1" type="radio" id="kt_rating_input_1"
+                                    checked="checked">
+                                <!--end::Star 1-->
+                                <!--begin::Star 2-->
+                                <label class="rating-label" for="kt_rating_input_2">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
+                                    <span class="svg-icon svg-icon-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                fill="black"></path>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </label>
+                                <input class="rating-input" name="rating" value="2" type="radio" id="kt_rating_input_2"
+                                    checked="checked">
+                                <!--end::Star 2-->
+                                <!--begin::Star 3-->
+                                <label class="rating-label" for="kt_rating_input_3">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
+                                    <span class="svg-icon svg-icon-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                fill="black"></path>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </label>
+                                <input class="rating-input" name="rating" value="3" type="radio" id="kt_rating_input_3"
+                                    checked="checked">
+                                <!--end::Star 3-->
+                                <!--begin::Star 4-->
+                                <label class="rating-label" for="kt_rating_input_4">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
+                                    <span class="svg-icon svg-icon-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                fill="black"></path>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </label>
+                                <input class="rating-input" name="rating" value="4" type="radio" id="kt_rating_input_4">
+                                <!--end::Star 4-->
+                                <!--begin::Star 5-->
+                                <label class="rating-label" for="kt_rating_input_5">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
+                                    <span class="svg-icon svg-icon-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                                fill="black"></path>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </label>
+                                <input class="rating-input" name="rating" value="5" type="radio" id="kt_rating_input_5">
+                                <!--end::Star 5-->
+                            </div>
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                        </div>
+
+                        <!--begin::Input group-->
+                        <div class="d-flex flex-column mb-3 fv-row">
+                            <label class="fs-6 fw-bold mb-2 required">ملاحظات</label>
+                            <textarea class="form-control form-control-solid" rows="3" name="description"
+                                placeholder="ملاحظات"></textarea>
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+                    <!--end::Scroll-->
+                </div>
+                <!--end::Modal body-->
+                <!--begin::Modal footer-->
+                <div class="modal-footer flex-center">
+                    <!--begin::Button-->
+                    <button type="reset" id="kt_modal_report_rate_cancel" class="btn btn-light me-3">إلغاء</button>
+                    <!--end::Button-->
+                    <!--begin::Button-->
+                    <button type="submit" id="kt_modal_report_rate_submit" class="btn btn-primary">
+                        <span class="indicator-label">حفظ</span>
+                        <span class="indicator-progress">الرجاء الإنتظار...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                    <!--end::Button-->
+                </div>
+                <!--end::Modal footer-->
+                <div></div>
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+
+<!--end::Modals-->
+
 
 <!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="/assets/plugins/global/plugins.bundle.js"></script>
@@ -272,7 +525,7 @@
 
 <script>
     const reportID = $('#container').attr('reportID')
-    console.log(reportID);
 </script>
 
 <script src="/assets/js/myScripts/report/view.js"></script>
+<script src="/assets/js/myScripts/report/modals/rate.js"></script>

@@ -10,6 +10,8 @@ var KTVolunteerList = function () {
     var filterPayment;
     var table
     let dataRes
+    let  CITIES
+
 
     let dateQuery = {
 
@@ -38,6 +40,7 @@ var KTVolunteerList = function () {
                 "dataSrc": 'volunteers',
                 "dataFilter": function (res) {
                     dataRes = JSON.parse(res)
+                    CITIES = dataRes.CITIES
                     return res
                 }
             },
@@ -100,7 +103,11 @@ var KTVolunteerList = function () {
                     data: 'tools',
                 },
                 {
-                    data: 'address',
+                    data: 'city',
+                    render: function (data, type, doc) {
+                       return CITIES[data]
+
+                    }
                 },
                 {
                     data: 'status',
@@ -143,20 +150,24 @@ var KTVolunteerList = function () {
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                         data-kt-menu="true">
+                        ${(doc.status == 'approved' || doc.status == 'rejected') ? '' : `
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
                          <a href="/volunteers/approve/${doc._id}" class="menu-link px-3">قبول</a>
-
                         </div>
                         <!--end::Menu item-->
+
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
                          <a href="/volunteers/reject/${doc._id}" class="menu-link px-3">رفض</a>
-
                         </div>
                         <!--end::Menu item-->
-
-                                      
+                        `}
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                         <a href="#" class="menu-link px-3">حذف</a>
+                        </div>
+                        <!--end::Menu item-->               
                     </div>
                     <!--end::Menu-->`
 

@@ -115,7 +115,7 @@ var KTClosedReportsList = function () {
                             </div>
                             <!--end::Title-->
                             <!--begin::Content-->
-                            <div class="fs-6 fw-bold text-gray-600 mb-5">أحتاج المساعدة مركبتي عالقة في رمال الصحراء.</div>
+                            <div class="fs-6 fw-bold text-gray-600 mb-5">${doc.description}</div>
                             <!--end::Content-->
                             <!--begin::Footer-->
                             <div class="d-flex flex-stack flex-wrapr">

@@ -29,7 +29,9 @@ var KTCreateAccount = function () {
             payload.birthDate = $(form).find('input[name="birthDate"]').val()
             payload.password = $(form).find('input[name="password"]').val()
             payload.email = $(form).find('input[name="email"]').val()
-            payload.address = $(form).find('input[name="email"]').val()
+            payload.city = $(form).find('select[name="city"]').val()
+            payload.region = $(form).find('input[name="region"]').val()
+
             payload.carType = $(form).find('input[name="carType"]').val()
             payload.tools = $(form).find('input[name="tools"]').val()
 
@@ -143,6 +145,8 @@ var KTCreateAccount = function () {
 
     var initValidation = function () {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+        FormValidation.validators.checkValidPhoneNumber = checkValidPhoneNumber;
+        FormValidation.validators.checkValidFormalID = checkValidFormalID;
         FormValidation.validators.checkIfFormalIDExist = checkIfFormalIDExist;
 
         // Step 1
@@ -176,14 +180,19 @@ var KTCreateAccount = function () {
                 fields: {
                     'nationalID': {
                         validators: {
+                            checkValidFormalID: {
+                                message: 'رقم الهوية غير صالح'
+
+                            },
                             notEmpty: {
                                 message: 'رقم الهوية الوطنية مطلوبة!'
                             },
-                            checkIfFormalIDExist:{
+                            checkIfFormalIDExist: {
                                 message: 'رقم الهوية موجود مسبقاً.'
 
                             }
                         }
+
                     },
                     'fullName': {
                         validators: {
@@ -194,8 +203,17 @@ var KTCreateAccount = function () {
                     },
                     'phoneNumber': {
                         validators: {
+
                             notEmpty: {
-                                message: 'رقم الجوال مطلوب!'
+                                message: 'رقم الجوال مطلوب'
+                            },
+                            stringLength: {
+                                min: 12,
+                                max: 12,
+                                message: 'رقم الجوال يجب أن يحتوي على 12 رقم.'
+                            },
+                            checkValidPhoneNumber: {
+                                message: 'رقم الجوال غير صالح'
                             }
                         }
                     },
@@ -238,7 +256,14 @@ var KTCreateAccount = function () {
                             }
                         }
                     },
-                    'address': {
+                    'city': {
+                        validators: {
+                            notEmpty: {
+                                message: 'المدينة مطلوبة.'
+                            }
+                        }
+                    },
+                    'region': {
                         validators: {
                             notEmpty: {
                                 message: 'عنوان السكن التفصيلي مطلوب!'
@@ -353,18 +378,56 @@ var KTCreateAccount = function () {
     };
 }();
 
+const checkValidPhoneNumber = function () {
+    return {
+        validate: function (input) {
+            const value = input.value;
+            if (!isNaN(Number(value)) && (value.indexOf('9665') == 0)) {
+                return {
+                    valid: true,
+                };
+            } else {
+                return {
+                    valid: false,
+                };
+            }
+        },
+    };
+};
+
+
+
+const checkValidFormalID = function () {
+    return {
+        validate: function (input) {
+            const value = input.value;
+            if (!isNaN(Number(value)) && value.length == 10 && value.indexOf('0') !== 0) {
+                return {
+                    valid: true,
+                };
+
+
+            }
+            return {
+                valid: false,
+            };
+
+        },
+    };
+};
+
 const checkIfFormalIDExist = function () {
     return {
         validate: function (input) {
             const value = input.value;
-            if(value.length == 9){
-                return $.post(`/utils/check-national-ID` , {nationalID:value}).then((data , statusCode)=>{
+            if (value.length == 10) {
+                return $.post(`/utils/check-national-ID`, { nationalID: value }).then((data, statusCode) => {
 
-                    if(data.isExisted){
+                    if (data.isExisted) {
                         return {
                             valid: false,
                         };
-                    }else{
+                    } else {
                         return {
                             valid: true,
                         };
@@ -372,7 +435,7 @@ const checkIfFormalIDExist = function () {
 
                 }).catch(console.log)
             }
-            
+
         },
     };
 };

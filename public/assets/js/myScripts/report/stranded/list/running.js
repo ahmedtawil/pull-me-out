@@ -35,7 +35,7 @@ var KTRunningReportsList = function () {
 
 
             "ajax": {
-                url: "/reports/running/data/get",
+                url: `/reports/stranded/running/data/get/${strandedID}`,
                 "dataSrc": 'reports',
                 "dataFilter": function (res) {
                     dataRes = JSON.parse(res)
@@ -110,7 +110,7 @@ var KTRunningReportsList = function () {
                             <!--end::Header-->
                             <!--begin::Title-->
                             <div class="mb-2">
-                            <a href="#" class="fs-4 fw-bolder mb-1 text-gray-900 text-hover-primary">${doc.stranded.fullName}</a>
+                            <a href="#" class="fs-4 fw-bolder mb-1 text-gray-900 text-hover-primary">${moment(doc.createdAt).format('YYYY/MM/DD LTS')}</a>
                             </div>
                             <!--end::Title-->
                             <!--begin::Content-->
@@ -142,7 +142,7 @@ var KTRunningReportsList = function () {
                                             </svg>
                                         </span>
                                         <!--end::Svg Icon-->
-                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">${CITIES[doc.stranded.city] || 'مجهول'}</span>
+                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">عرض الموقع</span>
                                     </div>
                                     <!--end::Stat-->
                                     <!--begin::Stat-->
@@ -156,7 +156,7 @@ var KTRunningReportsList = function () {
                                                                                 </svg>
                                         </span>
                                         <!--end::Svg Icon-->
-                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">${doc.stranded.age}</span>
+                                        <span class="ms-1 fs-7 fw-bolder text-gray-600">عرض الصورة</span>
                                     </div>
                                     <!--end::Stat-->
                                 </div>

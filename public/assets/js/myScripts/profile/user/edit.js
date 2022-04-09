@@ -1,45 +1,48 @@
 "use strict";
 // Class definition
-var KTModalReportAdd = function () {
+var KTModalUserEdit = function () {
     var submitButton;
-    var cancelButton;
-    var closeButton;
     var validator;
     var form;
     var modal;
+    var id = $("#id").val();
 
     // Init form inputs
     var handleForm = function () {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+        FormValidation.validators.checkIfFormalIDExist = checkIfFormalIDExist;
         FormValidation.validators.checkValidPhoneNumber = checkValidPhoneNumber;
         FormValidation.validators.checkValidFormalID = checkValidFormalID;
-
 
 
         validator = FormValidation.formValidation(
             form,
             {
                 fields: {
-                    'fullName': {
+                    'nationalID': {
                         validators: {
+                            checkValidFormalID: {
+                                message: 'رقم الهوية غير صالح'
+
+                            },
                             notEmpty: {
-                                message: 'الاسم الرباعي مطلوب.'
+                                message: 'رقم الهوية الوطنية مطلوبة!'
+                            },
+                            checkIfFormalIDExist: {
+                                message: 'رقم الهوية موجود مسبقاً.'
+
                             }
                         }
                     },
-                    'nationalID': {
+                    'fullName': {
                         validators: {
                             notEmpty: {
-                                message: 'رقم الهوية مطلوب'
-                            }, checkValidFormalID: {
-                                message: 'رقم الهوية غير صالح'
-
+                                message: 'الاسم رباعي مطلوب!'
                             }
                         }
                     },
                     'phoneNumber': {
                         validators: {
-
                             notEmpty: {
                                 message: 'رقم الجوال مطلوب'
                             },
@@ -56,48 +59,46 @@ var KTModalReportAdd = function () {
                     'birthDate': {
                         validators: {
                             notEmpty: {
-                                message: 'تاريخ الميلاد مطلوب.'
+                                message: 'تاريخ الميلاد مطلوب!'
                             }
                         }
                     },
-
+                    'email': {
+                        validators: {
+                            notEmpty: {
+                                message: 'عنوان البريد الإلكتروني مطلوب!'
+                            }
+                        }
+                    },
+                    
                     'city': {
                         validators: {
                             notEmpty: {
-                                message: 'المدينة مطلوبة.'
+                                message: 'المدينة مطلوبة'
                             }
                         }
                     },
                     'region': {
                         validators: {
                             notEmpty: {
-                                message: 'الحي مطلوب.'
+                                message:  'العنوان التفصيلي'
                             }
                         }
                     },
-
                     'carType': {
                         validators: {
                             notEmpty: {
-                                message: 'نوع المركبة مطلوبة.'
+                                message: 'نوع السيارة مطلوب!'
                             }
                         }
                     },
-                    'type': {
+                    'tools': {
                         validators: {
                             notEmpty: {
-                                message: 'نوع الحالة الطارئة مطلوبة.'
+                                message: 'الأدوات مطلوبة!'
                             }
                         }
-                    },
-                    
-                    'description': {
-                        validators: {
-                            notEmpty: {
-                                message: 'وصف الحالة مطلوب.'
-                            }
-                        }
-                    },
+                    }
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -131,23 +132,23 @@ var KTModalReportAdd = function () {
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
                         const payload = {
-                            fullName: $("input[name=fullName]").val(),
-                            phoneNumber: $("input[name=phoneNumber]").val(),
-                            birthDate: $("input[name=birthDate]").val(),
-                            city: $("select[name=city]").val(),
-                            region: $("input[name=region]").val(),
-                            carType: $("input[name=carType]").val(),
-                            plateInfo: $("input[name=plateInfo]").val(),
-                            type: $("select[name=type]").val(),
-                            description:$("textarea[name=description]").val(),
+                            nationalID: $('input[name="nationalID"]').val(),
+                            fullName: $('input[name="fullName"]').val(),
+                            phoneNumber: $('input[name="phoneNumber"]').val(),
+                            birthDate: $('input[name="birthDate"]').val(),
+                            email: $('input[name="email"]').val(),
+                            city: $('select[name="city"]').val(),
+                            region: $('input[name="region"]').val(),
+                            carType: $('input[name="carType"]').val(),
+                            tools: $('input[name="tools"]').val()
                         }
+                       
 
-
-                        $.post('/reports/new', { payload: JSON.stringify(payload) }).then(recipientID => {
+                        $.post(`/users/profile/edit/${id}`, { payload: JSON.stringify(payload) }).then(recipientID => {
                             submitButton.removeAttribute('data-kt-indicator');
 
                             Swal.fire({
-                                text: "تم إضافة البلاغ بنجاح!",
+                                text: "تم تعديل البيانات بنجاح!",
                                 icon: "success",
                                 buttonsStyling: false,
                                 confirmButtonText: "حسنا",
@@ -156,20 +157,17 @@ var KTModalReportAdd = function () {
                                 }
                             }).then(function (result) {
                                 if (result.isConfirmed) {
-                                    // Hide modal
-                                    modal.hide();
 
                                     // Enable submit button after loading
                                     submitButton.disabled = false;
 
-                                    // Redirect to customers list page
-                                    location.reload()
-
+                                    // Redirect to Employees list page
+                                    window.location = `/users/profile/${id}`
                                 }
                             })
                         }).catch(err => {
                             Swal.fire({
-                                text: errDisplay(err),
+                                text: `${err.responseJSON.msg}`,
                                 icon: "error",
                                 buttonsStyling: false,
                                 confirmButtonText: "حسنا",
@@ -192,7 +190,6 @@ var KTModalReportAdd = function () {
                                 confirmButton: "btn btn-primary"
                             }
                         });
-
                         submitButton.removeAttribute('data-kt-indicator');
 
                     }
@@ -200,90 +197,29 @@ var KTModalReportAdd = function () {
             }
         });
 
-        cancelButton.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            Swal.fire({
-                text: "هل تريد إلغاء العملية ؟",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "نعم",
-                cancelButtonText: "لا",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-active-light"
-                }
-            }).then(function (result) {
-                if (result.value) {
-                    form.reset(); // Reset form	
-                    modal.hide(); // Hide modal	
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "لم يتم إلغاء نموذج الإضافة!",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "حسنا",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        }
-                    });
-                }
-            });
-        });
-
-        closeButton.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            Swal.fire({
-                text: "هل أنت متأكد من إلغاء العملية ؟",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "نعم",
-                cancelButtonText: "لا",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-active-light"
-                }
-            }).then(function (result) {
-                if (result.value) {
-                    form.reset(); // Reset form	
-                    modal.hide(); // Hide modal	
 
 
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "لم يتم إلغاء العملية!",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "حسنا",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        }
-                    });
-                }
-            });
-        })
+
     }
 
     return {
         // Public functions
         init: function () {
             // Elements
-            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_report'));
 
-            form = document.querySelector('#kt_modal_add_report_form');
-            submitButton = form.querySelector('#kt_modal_add_report_submit');
-            cancelButton = form.querySelector('#kt_modal_add_report_cancel');
-            closeButton = form.querySelector('#kt_modal_add_report_close');
+            form = document.querySelector('#kt_modal_edit_user_form');
+            submitButton = form.querySelector('#kt_modal_edit_user_submit');
+            console.log($('#birthDate_datepicker').val());
 
-            $("#birthDate").daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format("YYYY"), 10)
-            })
+            const fp = flatpickr("#birthDate_datepicker", {
+
+            });
+
+            fp.setDate($('#birthDate_datepicker').val())
+
+
+            $('#city').val($('#city').attr('selected-item')).change()
+
 
 
             handleForm();
@@ -292,11 +228,37 @@ var KTModalReportAdd = function () {
 }();
 
 
+
+
+const checkIfFormalIDExist = function () {
+    return {
+        validate: function (input) {
+            const value = input.value;
+            if (value.length == 10) {
+                return $.post(`/utils/check-national-ID`, { nationalID: value , id}).then((data, statusCode) => {
+
+                    if (data.isExisted) {
+                        return {
+                            valid: false,
+                        };
+                    } else {
+                        return {
+                            valid: true,
+                        };
+                    }
+
+                }).catch(console.log)
+            }
+
+        },
+    };
+};
+
 const checkValidPhoneNumber = function () {
     return {
         validate: function (input) {
             const value = input.value;
-            if (!isNaN(Number(value)) && (value.indexOf('9665') == 0)) {
+            if (!isNaN(Number(value)) && (value.indexOf('9665') == 0 )) {
                 return {
                     valid: true,
                 };
@@ -315,6 +277,7 @@ const checkValidFormalID = function () {
     return {
         validate: function (input) {
             const value = input.value;
+            console.log(value);
             if (!isNaN(Number(value)) && value.length == 10 && value.indexOf('0') !== 0) {
                 return {
                     valid: true,
@@ -334,5 +297,5 @@ const checkValidFormalID = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTModalReportAdd.init();
+    KTModalUserEdit.init();
 });

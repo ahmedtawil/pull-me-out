@@ -17,5 +17,6 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler('user not found!.', 401))
     }
     req.user = user 
+    res.locals.user = req.user
     next()
 })

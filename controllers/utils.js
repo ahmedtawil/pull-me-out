@@ -6,7 +6,7 @@ const moment = require('moment')
 const _ = require('lodash')
 const User = require('../models/User')
 
-router.post('/check-national-ID', async (req, res) => {
+router.post('/check-national-ID', async function (req, res, next) {
     const { nationalID, id = null } = req.body
     const found = await User.findOne({ nationalID })
     if (found) {
@@ -26,7 +26,7 @@ router.post('/check-national-ID', async (req, res) => {
 
 })
 
-router.post('/check-phone-number', async (req, res) => {
+router.post('/check-phone-number', async function (req, res, next) {
     const { phoneNumber, id = null } = req.body
     const found = await User.findOne({ phoneNumber })
     if (found) {
