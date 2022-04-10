@@ -10,6 +10,7 @@ var KTadminsTable = function () {
     var filterPayment;
     var table
     let dataRes
+    let  CITIES
 
     let dateQuery = {
 
@@ -38,6 +39,8 @@ var KTadminsTable = function () {
                 "dataSrc": 'admins',
                 "dataFilter": function (res) {
                     dataRes = JSON.parse(res)
+                    CITIES = dataRes.CITIES
+
                     return res
                 }
             },
@@ -100,7 +103,11 @@ var KTadminsTable = function () {
                     data: 'tools',
                 },
                 {
-                    data: 'address',
+                    data: 'city',
+                    render: function (data, type, doc) {
+                       return CITIES[data]
+
+                    }
                 },
                
                 {

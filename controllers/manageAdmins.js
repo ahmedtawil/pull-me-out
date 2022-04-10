@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const moment = require('moment')
 const _ = require('lodash')
 const User = require('../models/User')
+const { CITIES, REPORTS_TYPES, REPORTS_STATUS } = require('../data/constants')
 
 
 router.get('/page/get', async function (req, res, next) {
@@ -43,7 +44,8 @@ router.get('/data/get', async function (req, res, next) {
     return res.json({
         recordsTotal: adminsCount,
         recordsFiltered: adminsFillterCount,
-        admins
+        admins,
+        CITIES
     })
 })
 
