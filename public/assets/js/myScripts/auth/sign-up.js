@@ -208,9 +208,9 @@ var KTCreateAccount = function () {
                                 message: 'رقم الجوال مطلوب'
                             },
                             stringLength: {
-                                min: 12,
-                                max: 12,
-                                message: 'رقم الجوال يجب أن يحتوي على 12 رقم.'
+                                min: 9,
+                                max: 9,
+                                message: 'رقم الجوال يجب أن يحتوي على 9 رقم.'
                             },
                             checkValidPhoneNumber: {
                                 message: 'رقم الجوال غير صالح'
@@ -382,7 +382,7 @@ const checkValidPhoneNumber = function () {
     return {
         validate: function (input) {
             const value = input.value;
-            if (!isNaN(Number(value)) && (value.indexOf('9665') == 0)) {
+            if (!isNaN(Number(value)) && (value.indexOf('5') == 0)) {
                 return {
                     valid: true,
                 };

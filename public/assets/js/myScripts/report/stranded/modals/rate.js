@@ -1,18 +1,17 @@
 "use strict";
 // Class definition
-var KTModalReportAdd = function () {
+var KTModalReportRate = function () {
     var submitButton;
     var cancelButton;
     var closeButton;
     var validator;
     var form;
     var modal;
+    let reportID
 
     // Init form inputs
     var handleForm = function () {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
-        FormValidation.validators.checkValidPhoneNumber = checkValidPhoneNumber;
-        FormValidation.validators.checkValidFormalID = checkValidFormalID;
 
 
 
@@ -20,84 +19,14 @@ var KTModalReportAdd = function () {
             form,
             {
                 fields: {
-                    'fullName': {
+                    'rate': {
                         validators: {
                             notEmpty: {
-                                message: 'الاسم الرباعي مطلوب.'
+                                message: 'التقييم مطلوب.'
                             }
                         }
                     },
-                    'nationalID': {
-                        validators: {
-                            notEmpty: {
-                                message: 'رقم الهوية مطلوب'
-                            }, checkValidFormalID: {
-                                message: 'رقم الهوية غير صالح'
-
-                            }
-                        }
-                    },
-                    'phoneNumber': {
-                        validators: {
-
-                            notEmpty: {
-                                message: 'رقم الجوال مطلوب'
-                            },
-                            stringLength: {
-                                min: 9,
-                                max: 9,
-                                message: 'رقم الجوال يجب أن يحتوي على 9 رقم.'
-                            },
-                            checkValidPhoneNumber: {
-                                message: 'رقم الجوال غير صالح'
-                            }
-                        }
-                    },
-                    'birthDate': {
-                        validators: {
-                            notEmpty: {
-                                message: 'تاريخ الميلاد مطلوب.'
-                            }
-                        }
-                    },
-
-                    'city': {
-                        validators: {
-                            notEmpty: {
-                                message: 'المدينة مطلوبة.'
-                            }
-                        }
-                    },
-                    'region': {
-                        validators: {
-                            notEmpty: {
-                                message: 'الحي مطلوب.'
-                            }
-                        }
-                    },
-
-                    'carType': {
-                        validators: {
-                            notEmpty: {
-                                message: 'نوع المركبة مطلوبة.'
-                            }
-                        }
-                    },
-                    'type': {
-                        validators: {
-                            notEmpty: {
-                                message: 'نوع الحالة الطارئة مطلوبة.'
-                            }
-                        }
-                    },
-                    
-                    'description': {
-                        validators: {
-                            notEmpty: {
-                                message: 'وصف الحالة مطلوب.'
-                            }
-                        }
-                    },
+                  
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -131,23 +60,16 @@ var KTModalReportAdd = function () {
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
                         const payload = {
-                            fullName: $("input[name=fullName]").val(),
-                            phoneNumber: $("input[name=phoneNumber]").val(),
-                            birthDate: $("input[name=birthDate]").val(),
-                            city: $("select[name=city]").val(),
-                            region: $("input[name=region]").val(),
-                            carType: $("input[name=carType]").val(),
-                            plateInfo: $("input[name=plateInfo]").val(),
-                            type: $("select[name=type]").val(),
-                            description:$("textarea[name=description]").val(),
+                            rate: $('input[name="rating"]:checked').val(),
+                            description: $("textarea[name=description]").val(),
                         }
 
 
-                        $.post('/reports/new', { payload: JSON.stringify(payload) }).then(recipientID => {
+                        $.post(`/reports/volunteer/rate/${reportID}`, { payload: JSON.stringify(payload) }).then(_ => {
                             submitButton.removeAttribute('data-kt-indicator');
 
                             Swal.fire({
-                                text: "تم إضافة البلاغ بنجاح!",
+                                text: "تم إضافة التقييم بنجاح!",
                                 icon: "success",
                                 buttonsStyling: false,
                                 confirmButtonText: "حسنا",
@@ -161,8 +83,6 @@ var KTModalReportAdd = function () {
 
                                     // Enable submit button after loading
                                     submitButton.disabled = false;
-
-                                    // Redirect to customers list page
                                     location.reload()
 
                                 }
@@ -179,7 +99,7 @@ var KTModalReportAdd = function () {
                             });
 
                             submitButton.removeAttribute('data-kt-indicator');
-
+                            submitButton.disabled = false;
                         })
 
                     } else {
@@ -192,7 +112,6 @@ var KTModalReportAdd = function () {
                                 confirmButton: "btn btn-primary"
                             }
                         });
-
                         submitButton.removeAttribute('data-kt-indicator');
 
                     }
@@ -218,6 +137,7 @@ var KTModalReportAdd = function () {
                 if (result.value) {
                     form.reset(); // Reset form	
                     modal.hide(); // Hide modal	
+                    location.reload()
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
                         text: "لم يتم إلغاء نموذج الإضافة!",
@@ -250,6 +170,7 @@ var KTModalReportAdd = function () {
                 if (result.value) {
                     form.reset(); // Reset form	
                     modal.hide(); // Hide modal	
+                    location.reload()
 
 
                 } else if (result.dismiss === 'cancel') {
@@ -267,23 +188,18 @@ var KTModalReportAdd = function () {
         })
     }
 
+
     return {
         // Public functions
         init: function () {
             // Elements
-            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_report'));
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_report_rate'));
 
-            form = document.querySelector('#kt_modal_add_report_form');
-            submitButton = form.querySelector('#kt_modal_add_report_submit');
-            cancelButton = form.querySelector('#kt_modal_add_report_cancel');
-            closeButton = form.querySelector('#kt_modal_add_report_close');
+            form = document.querySelector('#kt_modal_report_rate_form');
+            submitButton = form.querySelector('#kt_modal_report_rate_submit');
+            cancelButton = form.querySelector('#kt_modal_report_rate_cancel');
+            closeButton = form.querySelector('#kt_modal_report_rate_close');
 
-            $("#birthDate").daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format("YYYY"), 10)
-            })
 
 
             handleForm();
@@ -292,47 +208,22 @@ var KTModalReportAdd = function () {
 }();
 
 
-const checkValidPhoneNumber = function () {
-    return {
-        validate: function (input) {
-            const value = input.value;
-            if (!isNaN(Number(value)) && (value.indexOf('5') == 0)) {
-                return {
-                    valid: true,
-                };
-            } else {
-                return {
-                    valid: false,
-                };
-            }
-        },
-    };
-};
+
+$('.rateBtn').on('click' , function (e) {
+    e.preventDefault()
+    console.log('------------------');
+    console.log($(this).attr('id'));
+    
+})
 
 
-
-const checkValidFormalID = function () {
-    return {
-        validate: function (input) {
-            const value = input.value;
-            if (!isNaN(Number(value)) && value.length == 10 && value.indexOf('0') !== 0) {
-                return {
-                    valid: true,
-                };
-
-
-            }
-            return {
-                valid: false,
-            };
-
-        },
-    };
-};
 
 
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTModalReportAdd.init();
+   
+    KTModalReportRate.init();
+   
 });
+

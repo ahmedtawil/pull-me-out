@@ -23,9 +23,10 @@ const reportSchema = new Schema({
     location: {
         type: String,
     },
-    volunteer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    volunteer: { type: Schema.Types.ObjectId, ref: 'User' },
     stranded: { type: Schema.Types.ObjectId, ref: 'Stranded', required: true },
-    evaluation: { type: Schema.Types.ObjectId, ref: 'Evaluation', required: true },
+    volunteerEvaluation: { type: Schema.Types.ObjectId, ref: 'Evaluation'},
+    strandedEvaluation: { type: Schema.Types.ObjectId, ref: 'Evaluation' }, 
 
     description:{
         type: String,

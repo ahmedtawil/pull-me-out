@@ -92,11 +92,7 @@ var KTOpenReportsList = function () {
                                             </div>
                                         </div>
                                         <!--end::Heading-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="/reports/page/get/${doc._id}" class="menu-link px-3">عرض</a>
-                                        </div>
-                                        <!--end::Menu item-->
+                                     
                                          <!--begin::Menu item-->
                                          <div class="menu-item px-3">
                                             <a href="#" class="menu-link px-3">حذف</a>
@@ -176,10 +172,6 @@ var KTOpenReportsList = function () {
     // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
     var handleSearchDatatable = () => {
         const filterSearch = document.querySelector('[data-kt-volunteer-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            tableQuery.search = e.target.value
-            datatable.search(JSON.stringify(tableQuery)).draw();
-        });
     }
     // Filter Datatable
     var handleFilter = function () {
@@ -355,7 +347,6 @@ var KTOpenReportsList = function () {
             inititemList();
             handleSearchDatatable();
             handleDeleteRows();
-            handleFilter();
 
 
         }

@@ -19,6 +19,9 @@ const evaluationSchema = new Schema({
         required: true
     },
     rate: { type: Number, required: true },
+    volunteer: { type: Schema.Types.ObjectId, ref: 'User' },
+    stranded: { type: Schema.Types.ObjectId, ref: 'Stranded'},
+
     createdAt: {
         type: Date,
         default: Date.now

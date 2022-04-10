@@ -93,7 +93,7 @@ var KTRunningReportsList = function () {
                                         <!--end::Heading-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="/reports/page/get/${doc._id}" class="menu-link px-3">عرض</a>
+                                            <a href="#" id="${doc._id}" data-bs-toggle="modal" data-bs-target="#kt_modal_report_rate" class="menu-link rateBtn px-3">تقييم المنقذ</a>
                                         </div>
                                         <!--end::Menu item-->
 
@@ -184,10 +184,6 @@ var KTRunningReportsList = function () {
     // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
     var handleSearchDatatable = () => {
         const filterSearch = document.querySelector('[data-kt-volunteer-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            tableQuery.search = e.target.value
-            datatable.search(JSON.stringify(tableQuery)).draw();
-        });
     }
     // Filter Datatable
     var handleFilter = function () {
@@ -363,7 +359,6 @@ var KTRunningReportsList = function () {
             inititemList();
             handleSearchDatatable();
             handleDeleteRows();
-            handleFilter();
 
 
         }

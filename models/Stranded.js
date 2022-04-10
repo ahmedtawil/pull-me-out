@@ -13,7 +13,7 @@ const strandedSchema = new Schema({
         required: [true, 'رقم الجوال مطلوب!'],
         validate: {
             validator: function (v) {
-                return !isNaN(Number(v)) && (v.indexOf('9665') == 0 )
+                return !isNaN(Number(v)) && (v.indexOf('5') == 0 )
             },
             message: 'رقم الجوال غير صالح'
         },

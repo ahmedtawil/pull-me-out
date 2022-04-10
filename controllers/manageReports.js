@@ -223,19 +223,55 @@ router.post('/rate/:id', async function (req, res, next) {
         type: 'volToSt',
         rate,
         description,
+        volunteer:volunteer._id,
+        stranded:report.stranded,
+
         report: report._id,
         createdBy: req.user._id
     })
     await newEvaluation.save()
 
     report.status = 'closed'
-    report.evaluation = newEvaluation._id
+    report.volunteerEvaluation = newEvaluation._id
     await report.save()
 
     volunteer.numberOfClosedReport++
     await volunteer.save({validateBeforeSave:false})
     res.end()
 })
+
+router.post('/volunteer/rate/:id', async function (req, res, next) {
+    const reportID = req.params.id
+    if (!mongoose.isValidObjectId(reportID)) return next(new ErrorHandler('bad report id!', 400))
+
+    const report = await Report.findById(reportID)
+    if (!report) return next(new ErrorHandler('report not found!', 404))
+
+    
+    const volunteer = await User.findById(report.volunteer)
+
+    if (!volunteer) return next(new ErrorHandler('volunteer not found!', 404))
+
+    const { rate = 5, description = '' } = JSON.parse(req.body.payload)
+
+    const newEvaluation = new Evaluation({
+        type: 'stToVol',
+        rate,
+        description,
+        report: report._id,
+        volunteer:volunteer._id,
+        stranded:report.stranded,
+        createdBy: report.stranded
+    })
+    await newEvaluation.save()
+
+    report.strandedEvaluation = newEvaluation._id
+    await report.save()
+
+    await volunteer.save({validateBeforeSave:false})
+    res.end()
+})
+
 router.post('/stranded/search', async function (req, res, next) {
     const {query} = req.body
 
