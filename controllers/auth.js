@@ -4,6 +4,8 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const mongoose = require('mongoose')
 const moment = require('moment')
 const _ = require('lodash');
+const { isAuthenticatedUser } = require('../middlewares/auth')
+
 const sendToken = require('../utils/jwtToken');
 const User = require('../models/User');
 
@@ -13,8 +15,10 @@ router.get('/sign-up', async function (req, res, next) {
 })
 
 router.get('/sign-in', async function (req, res, next) {
-    if(req.user) return res.redirect('/dashboard')
-    console.log(req.user);
+    const { token } = req.cookies 
+    if(token) return res.redirect('/dashboard')
+
+
     res.render('auth/sign-in', { layout: false })
 })
 
@@ -30,13 +34,13 @@ router.get('/sign-out', async function (req, res, next) {
 
 
 router.post('/sign-up', async function (req, res, next) {
-    const { nationalID, fullName, phoneNumber, birthDate, password, email, city , region, carType, tools } = req.body
+    const { nationalID, fullName, phoneNumber, birthDate, password, email, city, region, carType, tools } = req.body
 
     const newUserObj = {
-        nationalID, fullName, phoneNumber, birthDate, password, email, city , region, carType, tools,
-        type:'volunteer',
-        position:'volunteer',
-        status:'pending',
+        nationalID, fullName, phoneNumber, birthDate, password, email, city, region, carType, tools,
+        type: 'volunteer',
+        position: 'volunteer',
+        status: 'pending',
     }
     const newUser = new User(newUserObj)
     await newUser.save()
@@ -44,19 +48,20 @@ router.post('/sign-up', async function (req, res, next) {
 })
 
 router.post('/sign-in', async function (req, res, next) {
+    console.log(req.user);
     const { email, password } = req.body;
     // Checks if email and password is entered by user
     if (!email || !password) {
         return next(new ErrorHandler('الرجاء إدخال البريد الإلكتروني وكلمة المرور.', 400))
     }
     // Finding user in database
-    const user = await User.findOne({ email , password })
+    const user = await User.findOne({ email, password })
 
     if (!user) {
         return next(new ErrorHandler('خطأ في رقم البريد الإلكتروني أو كلمة المرور.', 400));
     }
-    
-    if(user.status == 'pending')  return next(new ErrorHandler('في إنتظار الموافقة على طلبك!', 400))
+
+    if (user.status == 'pending') return next(new ErrorHandler('في إنتظار الموافقة على طلبك!', 400))
 
     sendToken(user, 200, res)
 })
