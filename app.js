@@ -18,7 +18,7 @@ const manageReportsController = require('./controllers/manageReports')
 const manageUsersController = require('./controllers/manageUsersController')
 
 const landingController = require('./controllers/landing')
-const newsController = require('./controllers/news')
+const manageNewsController = require('./controllers/manageNews')
 
 
 const app = express();
@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // routes
 app.use('/' , authController)
 app.use('/' , landingController)
-app.use('/news', newsController)
+app.use('/news', manageNewsController)
 
 app.use('/utils', utilsController)
 

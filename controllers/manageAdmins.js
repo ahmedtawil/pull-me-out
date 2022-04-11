@@ -29,7 +29,7 @@ router.get('/data/get', async function (req, res, next) {
             $regex: val,
             $options: 'i'
         }
-        const searchQuery = { $or: [{ formalID: qu }, { name: qu }, { phoneNumber: qu }] }
+        const searchQuery = { $or: [{ fullName: qu }, { nationalID: qu }, { phoneNumber: qu }] }
         if (queryValue.filter) {
             queryObj.$and.push(searchQuery)
         } else {
