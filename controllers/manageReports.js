@@ -4,6 +4,8 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const mongoose = require('mongoose')
 const moment = require('moment')
 const _ = require('lodash')
+const {isAuthenticatedUser} = require('../middlewares/auth')
+
 const { CITIES, REPORTS_TYPES, REPORTS_STATUS } = require('../data/constants')
 const User = require('../models/User');
 const Stranded = require('../models/Stranded');
@@ -17,13 +19,13 @@ router.get('/new', async function (req, res, next) {
     res.render('report/new', { layout: false })
 })
 
-router.get('/data/get', async function (req, res, next) {
+router.get('/data/get',isAuthenticatedUser, async function (req, res, next) {
 
     res.render('dashboard/cpanel')
 })
 
 
-router.get('/open/data/get', async function (req, res, next) {
+router.get('/open/data/get', isAuthenticatedUser ,async function (req, res, next) {
 
     const reportsCount = await Report.countDocuments({ status: 'open' })
     const reports = await Report.find({ status: 'open' }).sort({ createdAt: -1 }).populate('volunteer').populate('stranded')
@@ -39,7 +41,7 @@ router.get('/open/data/get', async function (req, res, next) {
 
 
 
-router.get('/running/data/get', async function (req, res, next) {
+router.get('/running/data/get',isAuthenticatedUser, async function (req, res, next) {
     const reportsCount = await Report.countDocuments({ status: 'running' })
     const reports = await Report.find({ status: 'running' }).sort({ createdAt: -1 }).populate('volunteer').populate('stranded')
 
@@ -51,7 +53,7 @@ router.get('/running/data/get', async function (req, res, next) {
     })
 })
 
-router.get('/closed/data/get', async function (req, res, next) {
+router.get('/closed/data/get',isAuthenticatedUser, async function (req, res, next) {
     const reportsCount = await Report.countDocuments({ status: 'closed' })
     const reports = await Report.find({ status: 'closed' }).sort({ createdAt: -1 }).limit(20).populate('volunteer').populate('stranded')
 
@@ -168,7 +170,7 @@ router.get('/stranded/page/get/:id', async function (req, res, next) {
     res.render('report/stranded/list' , {stranded , CITIES, REPORTS_TYPES, REPORTS_STATUS, moment , layout:false } )
     
 })
-router.get('/delete/:id', async function (req, res, next) {
+router.get('/delete/:id',isAuthenticatedUser, async function (req, res, next) {
     const reportID = req.params.id
     if (!mongoose.isValidObjectId(reportID)) return next(new ErrorHandler('bad report id!', 400))
     await Report.updateOne({_id:reportID} , {status:'deleted'})
@@ -212,7 +214,7 @@ router.post('/new', async function (req, res, next) {
 })
 
 
-router.post('/rate/:id', async function (req, res, next) {
+router.post('/rate/:id',isAuthenticatedUser, async function (req, res, next) {
     const reportID = req.params.id
     if (!mongoose.isValidObjectId(reportID)) return next(new ErrorHandler('bad report id!', 400))
 

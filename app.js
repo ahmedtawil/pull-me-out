@@ -39,20 +39,16 @@ app.use(express.static(path.join(__dirname, 'public')))
 // routes
 app.use('/' , authController)
 app.use('/' , landingController)
+app.use('/news', newsController)
 
 app.use('/utils', utilsController)
 
-// auth middleware
-app.use(isAuthenticatedUser)
-
-
 app.use('/reports', manageReportsController)
-app.use('/', dashboardController)
-app.use('/admins', manageAdminsController)
-app.use('/volunteers', manageVolunteersController)
-app.use('/users', manageUsersController)
+app.use('/',isAuthenticatedUser, dashboardController)
+app.use('/admins',isAuthenticatedUser, manageAdminsController)
+app.use('/volunteers',isAuthenticatedUser, manageVolunteersController)
+app.use('/users',isAuthenticatedUser, manageUsersController)
 
-app.use('/news', newsController)
 
 
 // Middleware to handle errors
