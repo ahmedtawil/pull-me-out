@@ -7,6 +7,7 @@ var KTModalReportAdd = function () {
     var validator;
     var form;
     var modal;
+    let latitude, longitude
 
     // Init form inputs
     var handleForm = function () {
@@ -90,7 +91,7 @@ var KTModalReportAdd = function () {
                             }
                         }
                     },
-                    
+
                     'description': {
                         validators: {
                             notEmpty: {
@@ -108,14 +109,9 @@ var KTModalReportAdd = function () {
                     })
                 }
             }
-        );/*
+        );
 
-		// Revalidate country field. For more info, plase visit the official plugin site: https://select2.org/
-        $(form.querySelector('[name="country"]')).on('change', function() {
-            // Revalidate the field when an option is chosen
-            validator.revalidateField('country');
-        });
-*/
+
         // Action buttons
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
@@ -139,7 +135,11 @@ var KTModalReportAdd = function () {
                             carType: $("input[name=carType]").val(),
                             plateInfo: $("input[name=plateInfo]").val(),
                             type: $("select[name=type]").val(),
-                            description:$("textarea[name=description]").val(),
+                            description: $("textarea[name=description]").val(),
+                            location:{
+                                latitude,
+                                longitude
+                            }
                         }
 
 
@@ -265,8 +265,56 @@ var KTModalReportAdd = function () {
                 }
             });
         })
-    }
 
+
+
+    }
+    function initMap(lat , lng) {
+        // Map options
+        var options = {
+            zoom: 15,
+            center: { lat, lng }
+        }
+
+        // New map
+        var map = new google.maps.Map(document.getElementById('map'), options);
+           // Add marker
+           var marker = new google.maps.Marker({
+            position:{ lat, lng},
+            map:map,
+            icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+          });
+    
+    }
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getPosition, geoError);
+        } else {
+            return null
+        }
+    }
+    function getPosition(position) {
+        latitude = position.coords.latitude
+        longitude = position.coords.longitude
+        console.log(latitude, longitude);
+        initMap(latitude , longitude)
+    }
+    function geoError(error) {
+        Swal.fire({
+            text: "يجب السماح بالحصول على الموقع الجغرافي!",
+            icon: "warning",
+            buttonsStyling: false,
+            confirmButtonText: "حسناً",
+            customClass: {
+                confirmButton: "btn fw-bold btn-danger",
+            }
+        }).then(function (result) {
+            if (result.value) {
+                location.href = '/'
+            }
+        });
+
+    }
     return {
         // Public functions
         init: function () {
@@ -277,6 +325,7 @@ var KTModalReportAdd = function () {
             submitButton = form.querySelector('#kt_modal_add_report_submit');
             cancelButton = form.querySelector('#kt_modal_add_report_cancel');
             closeButton = form.querySelector('#kt_modal_add_report_close');
+            getLocation()
 
             $("#birthDate").daterangepicker({
                 singleDatePicker: true,

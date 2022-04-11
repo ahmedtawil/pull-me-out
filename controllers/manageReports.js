@@ -168,15 +168,22 @@ router.get('/stranded/page/get/:id', async function (req, res, next) {
     res.render('report/stranded/list' , {stranded , CITIES, REPORTS_TYPES, REPORTS_STATUS, moment , layout:false } )
     
 })
+router.get('/delete/:id', async function (req, res, next) {
+    const reportID = req.params.id
+    if (!mongoose.isValidObjectId(reportID)) return next(new ErrorHandler('bad report id!', 400))
+    await Report.updateOne({_id:reportID} , {status:'deleted'})
+    res.json({success:true})
+})
 
 
 router.post('/new', async function (req, res, next) {
-    const { fullName, nationalID, phoneNumber, birthDate, city, region, carType, type, plateInfo, description } = JSON.parse(req.body.payload)
+    const { fullName, nationalID, phoneNumber, birthDate, city, region, carType, type, plateInfo,location ,  description } = JSON.parse(req.body.payload)
 
     const newReportData = {
         status: 'open',
         description,
         type,
+        location,
     }
 
     let stranded = await Stranded.findOne({ $or: [{ fullName }, { phoneNumber }] })

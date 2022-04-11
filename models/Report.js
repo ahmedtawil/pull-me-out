@@ -21,7 +21,8 @@ const reportSchema = new Schema({
         type: String,
     },
     location: {
-        type: String,
+        latitude:{type:Number  , required: true },
+        longitude:{type:Number  , required: true }
     },
     volunteer: { type: Schema.Types.ObjectId, ref: 'User' },
     stranded: { type: Schema.Types.ObjectId, ref: 'Stranded', required: true },
