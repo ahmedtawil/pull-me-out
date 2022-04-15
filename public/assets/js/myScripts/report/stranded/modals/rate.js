@@ -7,7 +7,6 @@ var KTModalReportRate = function () {
     var validator;
     var form;
     var modal;
-    let reportID
 
     // Init form inputs
     var handleForm = function () {
@@ -209,12 +208,8 @@ var KTModalReportRate = function () {
 
 
 
-$('.rateBtn').on('click' , function (e) {
-    e.preventDefault()
-    console.log('------------------');
-    console.log($(this).attr('id'));
-    
-})
+
+
 
 
 

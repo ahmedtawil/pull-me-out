@@ -16,7 +16,6 @@ const evaluationSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
     },
     rate: { type: Number, required: true },
     volunteer: { type: Schema.Types.ObjectId, ref: 'User' },

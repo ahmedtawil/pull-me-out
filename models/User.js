@@ -9,7 +9,7 @@ const userSchema = new Schema({
     type: {
         type: String,
         enum: {
-            values: ['admin', 'volunteer', 'stranded'],
+            values: ['admin', 'volunteer'],
             message: 'نوع المستخدم غير صالح!'
         }
     },

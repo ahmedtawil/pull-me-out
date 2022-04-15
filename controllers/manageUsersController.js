@@ -110,5 +110,15 @@ router.post('/password/change/:id', async function (req, res, next) {
 
 })
 
+router.get('/delete/:id', async function (req, res, next) {
+    const userID = req.params.id
+    if (!mongoose.isValidObjectId(userID)) return next(new ErrorHandler('bad user id!', 400))
+    await User.updateOne({ _id: userID }, { status: 'deleted' })
+  
+  
+    res.json({success:true})
+  
+  })
+  
 
 module.exports = router

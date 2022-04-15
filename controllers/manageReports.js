@@ -160,6 +160,8 @@ router.post('/stranded/search', async function (req, res, next) {
 
 
 
+
+
 //Admin&Volunteer
 
 router.get('/data/get',isAuthenticatedUser, async function (req, res, next) {

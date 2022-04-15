@@ -110,5 +110,17 @@ router.get('/reject/:id', async function (req, res, next) {
 })
 
 
+router.get('/upgrade/:id', async function (req, res, next) {
+  const volunteerID = req.params.id
+  if (!mongoose.isValidObjectId(volunteerID)) return next(new ErrorHandler('bad volunteer id!', 400))
+  await User.updateOne({ _id: volunteerID }, { type: 'admin' , position:'admin' })
+
+
+  res.json({success:true})
+
+})
+
+
+
 
 module.exports = router
