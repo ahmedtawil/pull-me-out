@@ -4,7 +4,7 @@ const serviceAccount = require('./firebaseConfig.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: 'hejazy-260c2.appspot.com',
+  storageBucket: 'pullmeout.appspot.com',
 });
 
 function replaceAll(string, search, replace) {
@@ -33,15 +33,13 @@ async function uploadFile(filename, type, mimeType, path) {
     type = replaceAll(type, '/', '%2F');
     let result = await bucket.upload(path, options);
     let url =
-      `https://firebasestorage.googleapis.com/v0/b/hejazy-260c2.appspot.com/o/${type}%2F` +
+      `https://firebasestorage.googleapis.com/v0/b/pullmeout.appspot.com/o/${type}%2F` +
       filename +
       '?alt=media&token=' +
       token;
 
-    console.log(`${path} uploaded.`);
     return url;
   } catch (err) {
-    console.log(`ESTEKBAL APP UPLODE FILE ERROR : ${err.message}`);
     return;
   }
 }

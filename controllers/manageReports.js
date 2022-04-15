@@ -12,7 +12,10 @@ const Stranded = require('../models/Stranded');
 
 const Report = require('../models/Report');
 const Evaluation = require('../models/Evaluation');
-
+const uploadFile = require('../helpers/firebase');
+const deleteFile = require('../utils/deleteFile');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 //Stranded
 
@@ -80,8 +83,10 @@ router.get('/stranded/page/get/:id', async function (req, res, next) {
     res.render('report/stranded/list' , {stranded , CITIES, REPORTS_TYPES, REPORTS_STATUS, moment , layout:false } )
     
 })
-router.post('/new', async function (req, res, next) {
+router.post('/new', upload.array('image' , 2) ,  async function (req, res, next) {
+
     const { fullName, nationalID, phoneNumber, birthDate, city, region, carType, type, plateInfo,location ,  description } = JSON.parse(req.body.payload)
+    let files = req.files;
 
     const newReportData = {
         status: 'open',
@@ -110,6 +115,22 @@ router.post('/new', async function (req, res, next) {
 
     newReportData.stranded = stranded._id
     const newReport = new Report(newReportData)
+
+    const promises = files.map(async(file, i) => {
+        const object = {}
+        if (file !== undefined) {
+
+          let fileURL = await uploadFile(
+            i + '',
+            `attachments/files/${file.filename}`,
+            file.mimetype,
+            file.path
+          );
+          newReport.attachments.push(fileURL)
+          return deleteFile(file.path);
+        }
+      })
+      await Promise.all(promises)
     await newReport.save({ validateBeforeSave: false })
     res.end()
 

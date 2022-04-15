@@ -36,5 +36,6 @@ const reportSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    attachments: [String],
 })
 module.exports = mongoose.model('Report', reportSchema)

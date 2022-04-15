@@ -8,13 +8,58 @@ var KTModalReportAdd = function () {
     var form;
     var modal;
     let latitude, longitude
-
+    let file;
+    let pondFiles;
+    let formdata = new FormData(this);
     // Init form inputs
     var handleForm = function () {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         FormValidation.validators.checkValidPhoneNumber = checkValidPhoneNumber;
         FormValidation.validators.checkValidFormalID = checkValidFormalID;
+        FilePond.registerPlugin(FilePondPluginFileEncode);
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+        FilePond.registerPlugin(FilePondPluginFileValidateType);
 
+        file = FilePond.create(
+            document.querySelector('#image'), {
+            allowFileEncode: true,
+            allowImagePreview:true,
+            allowFileTypeValidation:true,
+            acceptedFileTypes: ['image/*'],
+
+            labelButtonAbortItemLoad: "Abort",
+            labelButtonAbortItemProcessing: "إلغاء",
+            labelButtonProcessItem: "رفع",
+            labelButtonRemoveItem: "إزالة",
+            labelButtonRetryItemLoad: "إعادة المحاولة",
+            labelButtonRetryItemProcessing: "إعادة المحاولة",
+            labelButtonUndoItemProcessing: "تراجع",
+            labelDecimalSeparator: ".",
+            labelFileAdded: "تم الإضافة بنجاح",
+            labelFileCountPlural: "الملفات في القائمة",
+            labelFileCountSingular: "file in list",
+            labelFileLoadError: "خطأ أثناء التهيئة",
+            labelFileLoading: "جاري الرفع",
+            labelFileProcessing: ".. جاري الرفع",
+            labelFileProcessingAborted: "تم إلغاء الرفع",
+            labelFileProcessingComplete: "تم الرفع بنجاح",
+            labelFileProcessingError: "خطأ في الرفع",
+            labelFileProcessingRevertError: "خطأ في التراجع",
+            labelFileRemoveError: "Error during remove",
+            labelFileRemoved: "تم الإزالة",
+            labelFileSizeNotAvailable: "Size not available",
+            labelFileWaitingForSize: "Waiting for size",
+            labelIdle: "إرفاق الملفات",
+            labelInvalidField: "خطأ في نوع الملفات",
+            labelTapToCancel: "إضغط للإلغاء",
+            labelTapToRetry: "إضغط للمحاولة أخرى",
+            labelTapToUndo: "أضغط للتراجع",
+            labelFileTypeNotAllowed: 'مسموح فقط صور',
+            fileValidateTypeLabelExpectedTypes: 'Expects {allButLastType} or {lastType}'
+
+        }
+        );
+        $('.filepond--credits').remove()
 
 
         validator = FormValidation.formValidation(
@@ -99,6 +144,13 @@ var KTModalReportAdd = function () {
                             }
                         }
                     },
+                    'filepond': {
+                        validators: {
+                            notEmpty: {
+                                message: 'السيرة الذاتية مطلوبة'
+                            }
+                        }
+                    }
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -120,13 +172,17 @@ var KTModalReportAdd = function () {
             if (validator) {
                 validator.validate().then(function (status) {
                     console.log('validated!');
-
+                    pondFiles = file.getFiles();
+                    for (var i = 0; i < pondFiles.length; i++) {
+                        // append the blob file
+                        formdata.append('image', pondFiles[i].file);
+                    }
                     if (status == 'Valid') {
                         submitButton.setAttribute('data-kt-indicator', 'on');
 
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
-                        const payload = {
+                        let payload = {
                             fullName: $("input[name=fullName]").val(),
                             phoneNumber: $("input[name=phoneNumber]").val(),
                             birthDate: $("input[name=birthDate]").val(),
@@ -142,34 +198,40 @@ var KTModalReportAdd = function () {
                             }
                         }
 
+                        payload = JSON.stringify(payload)
 
-                        $.post('/reports/new', { payload: JSON.stringify(payload) }).then(recipientID => {
-                            submitButton.removeAttribute('data-kt-indicator');
 
-                            Swal.fire({
-                                text: "تم إضافة البلاغ بنجاح!",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "حسنا",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            }).then(function (result) {
-                                if (result.isConfirmed) {
-                                    // Hide modal
-                                    modal.hide();
+                        formdata.append('payload',payload)
 
-                                    // Enable submit button after loading
-                                    submitButton.disabled = false;
+                        $.ajax({
+                            url: "/reports/new",
+                            type: 'POST',
+                            data: formdata,
+                            processData: false,
+                            contentType: false,
+                            success: function (data) {
+                                Swal.fire({
+                                    text: "تم إضافة البلاغ بنجاح يرجى الإنتظار!",
+                                    icon: "success",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "حسنا",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(function (result) {
+                                    if (result.isConfirmed) {
+                                        // Hide modal
+                                        modal.hide();
+                                        // Enable submit button after loading
+                                        submitButton.disabled = false;
+                                        window.location = '/application/volunteer/page/get'
 
-                                    // Redirect to customers list page
-                                    location.reload()
-
-                                }
-                            })
+                                    }
+                                })
+                            }
                         }).catch(err => {
                             Swal.fire({
-                                text: errDisplay(err),
+                                text: `حصل خطأ ما ، يرجى المحاولة مرة أخرى!`,
                                 icon: "error",
                                 buttonsStyling: false,
                                 confirmButtonText: "حسنا",
@@ -177,9 +239,7 @@ var KTModalReportAdd = function () {
                                     confirmButton: "btn btn-primary"
                                 }
                             });
-
                             submitButton.removeAttribute('data-kt-indicator');
-
                         })
 
                     } else {
