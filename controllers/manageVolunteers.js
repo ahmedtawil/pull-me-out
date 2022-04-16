@@ -4,6 +4,7 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const mongoose = require('mongoose')
 const moment = require('moment')
 const { CITIES, REPORTS_TYPES, REPORTS_STATUS } = require('../data/constants')
+const mail = require('../utils/email')
 
 const _ = require('lodash')
 const User = require('../models/User')
@@ -91,9 +92,14 @@ router.get('/requests/data/get', async function (req, res, next) {
 
 router.get('/approve/:id', async function (req, res, next) {
   const volunteerID = req.params.id
-  if (!mongoose.isValidObjectId(volunteerID)) return next(new ErrorHandler('bad volunteer id!', 400))
-  await User.updateOne({ _id: volunteerID, status: 'pending' }, { status: 'active' })
 
+  if (!mongoose.isValidObjectId(volunteerID)) return next(new ErrorHandler('bad volunteer id!', 400))
+  const volunteer = await User.findOne({ _id: volunteerID, status: 'pending' })
+  await mail.send('ahmed0tawil@gmail.com' , 'activation' , volunteer)
+  volunteer.status = 'active'
+  await volunteer.save({validateBeforeSave: false})
+
+  //await User.updateOne({ _id: volunteerID, status: 'pending' }, { status: 'active' })
 
   res.redirect('back')
 
@@ -102,7 +108,11 @@ router.get('/approve/:id', async function (req, res, next) {
 router.get('/reject/:id', async function (req, res, next) {
   const volunteerID = req.params.id
   if (!mongoose.isValidObjectId(volunteerID)) return next(new ErrorHandler('bad volunteer id!', 400))
-  await User.updateOne({ _id: volunteerID, status: 'pending' }, { status: 'rejected' })
+  const volunteer = await User.findOne({ _id: volunteerID, status: 'pending' })
+  await mail.send('ahmed0tawil@gmail.com' , 'rejection' , volunteer)
+  volunteer.status = 'rejected'
+  await volunteer.save({validateBeforeSave: false})
+
 
 
   res.redirect('back')

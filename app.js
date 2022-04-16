@@ -44,7 +44,7 @@ app.use('/news', manageNewsController)
 app.use('/utils', utilsController)
 
 app.use('/reports', manageReportsController)
-app.use('/',isAuthenticatedUser, dashboardController)
+app.use('/dashboard',isAuthenticatedUser, dashboardController)
 app.use('/admins',isAuthenticatedUser, manageAdminsController)
 app.use('/volunteers',isAuthenticatedUser, manageVolunteersController)
 app.use('/users',isAuthenticatedUser, manageUsersController)
