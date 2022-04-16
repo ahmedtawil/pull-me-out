@@ -5,7 +5,7 @@ function deleteFile(path) {
 
   fs.unlink(filePath, (err) => {
     if (err) {
-      console.log(`HEJAZY UTIL DELETE FILE : ${err.message}`);
+      console.log(`BAREQ UTIL DELETE FILE : ${err.message}`);
     } else console.log(`${path} is deleted!`);
   });
 }

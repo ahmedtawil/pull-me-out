@@ -95,7 +95,7 @@ router.get('/approve/:id', async function (req, res, next) {
 
   if (!mongoose.isValidObjectId(volunteerID)) return next(new ErrorHandler('bad volunteer id!', 400))
   const volunteer = await User.findOne({ _id: volunteerID, status: 'pending' })
-  await mail.send('ahmed0tawil@gmail.com' , 'activation' , volunteer)
+  await mail.send(volunteer.email , 'activation' , volunteer)
   volunteer.status = 'active'
   await volunteer.save({validateBeforeSave: false})
 
@@ -109,7 +109,7 @@ router.get('/reject/:id', async function (req, res, next) {
   const volunteerID = req.params.id
   if (!mongoose.isValidObjectId(volunteerID)) return next(new ErrorHandler('bad volunteer id!', 400))
   const volunteer = await User.findOne({ _id: volunteerID, status: 'pending' })
-  await mail.send('ahmed0tawil@gmail.com' , 'rejection' , volunteer)
+  await mail.send(volunteer.email , 'rejection' , volunteer)
   volunteer.status = 'rejected'
   await volunteer.save({validateBeforeSave: false})
 
