@@ -224,7 +224,7 @@ var KTModalReportAdd = function () {
                                         modal.hide();
                                         // Enable submit button after loading
                                         submitButton.disabled = false;
-                                        window.location = '/application/volunteer/page/get'
+                                        location.reload()
 
                                     }
                                 })
