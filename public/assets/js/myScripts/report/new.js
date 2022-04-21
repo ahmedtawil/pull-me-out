@@ -356,7 +356,6 @@ var KTModalReportAdd = function () {
     function getPosition(position) {
         latitude = position.coords.latitude
         longitude = position.coords.longitude
-        console.log(latitude, longitude);
         initMap(latitude , longitude)
     }
     function geoError(error) {

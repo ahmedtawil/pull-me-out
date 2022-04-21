@@ -112,7 +112,6 @@ var KTVolunteerList = function () {
                 {
                     data: 'status',
                     render: function (data, type, doc) {
-                        console.log(data);
                         let span;
                         switch (data) {
                             case 'pending':

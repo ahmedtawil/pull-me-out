@@ -12,6 +12,7 @@ var KTnewsTable = function () {
     let dataRes
     let CITIES
     let access
+    let user
 
     let dateQuery = {
 
@@ -44,6 +45,7 @@ var KTnewsTable = function () {
                     dataRes = JSON.parse(res)
                     CITIES = dataRes.CITIES
                     access = dataRes.access
+                    user = dataRes.user
                     return res
                 }
             },
@@ -62,8 +64,8 @@ var KTnewsTable = function () {
                                     <!--begin::Badge-->
                                     <div class="badge badge-light">خبر جديد</div>
                                     <!--end::Badge-->
-                                    
-                                    <!--begin::Menu-->
+                                    ${user != null && user.type == 'admin' ? 
+                                    `<!--begin::Menu-->
                                     <div>
                                         <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
                                             data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -91,18 +93,14 @@ var KTnewsTable = function () {
                                             <!--end::Heading-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3 deleteReport" id="${doc._id}">تعديل</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
                                                 <a href="#" class="menu-link px-3 deleteReport" id="${doc._id}">حذف</a>
                                             </div>
                                             <!--end::Menu item-->
                                         </div>
                                         <!--end::Menu 3-->
                                     </div>
-                                    <!--end::Menu-->
+                                    <!--end::Menu-->` : ''
+                                }
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Title-->

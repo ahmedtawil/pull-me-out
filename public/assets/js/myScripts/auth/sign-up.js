@@ -253,6 +253,9 @@ var KTCreateAccount = function () {
                         validators: {
                             notEmpty: {
                                 message: 'عنوان البريد الإلكتروني مطلوب!'
+                            },
+                            emailAddress: {
+                                message: 'البريد الإلكتروني غير صالح!'
                             }
                         }
                     },

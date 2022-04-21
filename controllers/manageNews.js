@@ -1,20 +1,45 @@
 const router = require('express').Router()
 const ErrorHandler = require('../utils/errorHandler');
-const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const mongoose = require('mongoose')
 const moment = require('moment')
 const _ = require('lodash')
+const jwt = require("jsonwebtoken");
+const User = require('../models/User')
+
 const { CITIES, REPORTS_TYPES, REPORTS_STATUS } = require('../data/constants')
 
 const News = require('../models/News')
 const { isAuthenticatedUser } = require('../middlewares/auth')
 
 
+const authzUser = async (req,res)=>{
+    let user = null
+    try {
+        const { token } = req.cookies || {token: null}
+
+        if (!token) {
+            return user
+        }
+        const decoded = await jwt.verify(token, process.env.JWT_SECRET)
+         user = await User.findById(decoded.id);
+        if(!user)  {        
+            return user
+        }
+        return user
+    
+    } catch (error) {
+        return user
+
+    }
+}
+
 router.get('/page/get', async function (req, res, next) {
-    res.render('news/list', { layout: false })
+    const user = await authzUser(req)
+    res.render('news/list', { user , layout: false })
 })
 
 router.get('/data/get', async function (req, res, next) {
+    const user = await authzUser(req)
 
     const query = req.query
 
@@ -49,7 +74,9 @@ router.get('/data/get', async function (req, res, next) {
         recordsTotal: newsCount,
         recordsFiltered:newsFillterCount, 
         news,
+        user,
         CITIES,
+
     })
 })
 

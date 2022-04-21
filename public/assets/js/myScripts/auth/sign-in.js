@@ -24,7 +24,10 @@ var KTSigninGeneral = function() {
                         validators: {
 							notEmpty: {
 								message: 'البريد الإلكتروني مطلوب'
-							}
+							},
+                            emailAddress: {
+                                message: 'البريد الإلكتروني غير صالح!'
+                            }
 						}
 					},
                     'password': {

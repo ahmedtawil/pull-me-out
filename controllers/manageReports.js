@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const ErrorHandler = require('../utils/errorHandler');
-const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const mongoose = require('mongoose')
 const moment = require('moment')
 const _ = require('lodash')
@@ -12,7 +11,7 @@ const Stranded = require('../models/Stranded');
 
 const Report = require('../models/Report');
 const Evaluation = require('../models/Evaluation');
-const uploadFile = require('../helpers/firebase');
+const uploadFile = require('../configs/firebase');
 const deleteFile = require('../utils/deleteFile');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
@@ -163,7 +162,7 @@ router.post('/volunteer/rate/:id', async function (req, res, next) {
 
     report.strandedEvaluation = newEvaluation._id
     await report.save()
-
+    volunteer.rate = rate
     await volunteer.save({ validateBeforeSave: false })
     res.end()
 })
@@ -174,7 +173,6 @@ router.post('/stranded/search', async function (req, res, next) {
     const searchQuery = { $or: [{ phoneNumber: query, email: query }] }
     const stranded = await Stranded.findOne(searchQuery)
     if (!stranded) return next(new ErrorHandler('لا يوجد نتائج للبحث!', 404))
-    console.log(stranded);
     res.json({ stranded: stranded._id })
 
 })

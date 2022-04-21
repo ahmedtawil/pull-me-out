@@ -105,7 +105,6 @@ var KTReportsSearch = function() {
         init: function() {
             form = document.querySelector('#kt_reports_search_form');
             submitButton = document.querySelector('#kt_reports_search_submit');
-            console.log(form , submitButton);
             
             handleForm();
         }

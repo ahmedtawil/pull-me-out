@@ -35,7 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 
-
 // routes
 app.use('/' , authController)
 app.use('/' , landingController)
@@ -45,7 +44,7 @@ app.use('/utils', utilsController)
 
 app.use('/reports', manageReportsController)
 app.use('/dashboard',isAuthenticatedUser, dashboardController)
-app.use('/admins',isAuthenticatedUser, manageAdminsController)
+app.use('/admins',isAuthenticatedUser ,  manageAdminsController)
 app.use('/volunteers',isAuthenticatedUser, manageVolunteersController)
 app.use('/users',isAuthenticatedUser, manageUsersController)
 

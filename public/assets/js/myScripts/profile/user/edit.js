@@ -67,6 +67,9 @@ var KTModalUserEdit = function () {
                         validators: {
                             notEmpty: {
                                 message: 'عنوان البريد الإلكتروني مطلوب!'
+                            },
+                            emailAddress: {
+                                message: 'البريد الإلكتروني غير صالح!'
                             }
                         }
                     },
@@ -209,7 +212,6 @@ var KTModalUserEdit = function () {
 
             form = document.querySelector('#kt_modal_edit_user_form');
             submitButton = form.querySelector('#kt_modal_edit_user_submit');
-            console.log($('#birthDate_datepicker').val());
 
             const fp = flatpickr("#birthDate_datepicker", {
 

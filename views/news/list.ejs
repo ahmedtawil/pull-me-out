@@ -89,9 +89,11 @@ License: For each use you must have a valid license purchased only from above li
 											</svg>
 										</span>
 										<!--end::Svg Icon-->
-										<input type="text" data-kt-news-table-filter="search"
+											<input type="text" data-kt-news-table-filter="search"
 											class="form-control form-control-solid w-250px ps-15"
 											placeholder="البحث عن خبر..." />
+										
+										
 									</div>
 									<!--end::Search-->
 								</div>
@@ -165,11 +167,12 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Menu 1-->
 										<!--end::Filter-->
 
-
+										<% if (user != null && user.type == 'admin') { %>
 										<!--begin::Add item-->
 										<a type="button" class="btn btn-primary" data-bs-toggle="modal"
 											data-bs-target="#kt_modal_add_news" href="#">خبر جديد</a>
 										<!--end::Add item-->
+										<% } %>
 									</div>
 									<!--end::Toolbar-->
 

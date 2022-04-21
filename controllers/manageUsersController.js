@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const ErrorHandler = require('../utils/errorHandler');
-const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const mongoose = require('mongoose')
 const moment = require('moment')
 const { CITIES, REPORTS_TYPES, REPORTS_STATUS } = require('../data/constants')
@@ -12,7 +11,6 @@ const User = require('../models/User')
 router.get('/profile/:id', async function (req, res, next) {
     const userID = req.params.id
     const user = await User.findById(userID)
-    console.log(user.city);
     res.render('profile/user/view', { user, CITIES, moment })
 
 })

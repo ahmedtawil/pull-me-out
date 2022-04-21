@@ -52,7 +52,6 @@ var KTModalReportView = function () {
     }
     function initMap(lat, lng) {
         // Map options
-        console.log(lat , lng);
         var options = {
             zoom: 15,
             center: { lat, lng }
@@ -71,7 +70,6 @@ var KTModalReportView = function () {
 
 
     const recived = $(followBtn).attr('recived')
-    console.log(recived);
     if (recived == "true") {
         followBtn.removeAttribute('data-kt-indicator');
         followBtn.classList.add("btn-success");

@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const ErrorHandler = require('../utils/errorHandler');
-const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const mongoose = require('mongoose')
 const moment = require('moment')
 const { CITIES, REPORTS_TYPES, REPORTS_STATUS } = require('../data/constants')
