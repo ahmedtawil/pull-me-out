@@ -352,7 +352,8 @@
             
                                     </div>
                                 <% } %>
-                              
+                                
+
                                 <div class="d-flex flex-stack flex-wrapr mb-3">
                                     <span class="fw-bold fs-6 text-gray-400 mx-5">توقيت البلاغ :</span>
                                     <span class="fw-bolder fs-6">
@@ -360,6 +361,16 @@
                                     </span>
         
                                 </div>
+                                <% if (report.status == 'running' || report.status == 'closed') { %>
+                                    <div class="d-flex flex-stack flex-wrapr mb-3">
+                                        <span class="fw-bold fs-6 text-gray-400 mx-5">توقيت الإستلام :</span>
+                                        <span class="fw-bolder fs-6">
+                                            <%= moment(report.recivedAt).format('YYYY/MM/DD LTS') %>
+                                        </span>
+            
+                                    </div>
+                                <% } %>
+                               
                             </div>
                             <!--end::Progress-->
         

@@ -107,6 +107,10 @@ var KTOpenReportsList = function () {
                             <!--begin::Content-->
                             <div class="fs-6 fw-bold text-gray-600 mb-5">${doc.description}</div>
                             <!--end::Content-->
+                            <!--begin::Content-->
+                            <div class="fs-6 fw-bold text-gray-600 mb-5">توقيت البلاغ : ${moment(doc.createdAt).format('YYYY/MM/DD LTS')}</div>
+                            <!--end::Content-->
+                          
                             <!--begin::Footer-->
                             <div class="d-flex flex-stack flex-wrapr">
                              

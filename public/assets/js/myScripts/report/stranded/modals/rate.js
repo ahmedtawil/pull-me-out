@@ -185,6 +185,8 @@ var KTModalReportRate = function () {
                 }
             });
         })
+
+
     }
 
 

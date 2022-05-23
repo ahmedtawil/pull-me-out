@@ -89,7 +89,7 @@ var KTClosedReportsList = function () {
                                         <!--end::Heading-->
                                       
                                         ${typeof doc.strandedEvaluation == 'undefined' ? ` <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
+                                        <div class="menu-item px-3 rate">
                                             <a href="#" id="${doc._id}" data-bs-toggle="modal" data-bs-target="#kt_modal_report_rate" class="menu-link rateBtn px-3">تقييم المنقذ</a>
                                         </div>
                                         <!--end::Menu item-->` : ''}
@@ -109,6 +109,12 @@ var KTClosedReportsList = function () {
                             <!--begin::Content-->
                             <div class="fs-6 fw-bold text-gray-600 mb-5">${doc.description}</div>
                             <!--end::Content-->
+                            <!--begin::Content-->
+                            <div class="fs-6 fw-bold text-gray-600 mb-5">توقيت البلاغ : ${moment(doc.createdAt).format('YYYY/MM/DD LTS')}</div>
+                            <!--end::Content-->
+                            <!--begin::Content-->
+                            <div class="fs-6 fw-bold text-gray-600 mb-5">توقيت الإستلام : ${moment(doc.recivedAt).format('YYYY/MM/DD LTS')}</div>
+                            <!--end::Content-->
                             <!--begin::Footer-->
                             <div class="d-flex flex-stack flex-wrapr">
                                 <!--begin::Users-->
@@ -116,8 +122,7 @@ var KTClosedReportsList = function () {
                                     <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
                                         title="${doc.volunteer.fullName}">
                                         <span class="symbol-label bg-warning text-inverse-warning fw-bolder">${doc.volunteer.fullName[0]}</span>
-                                    </div>
-                                  
+                                    </div>                                 
                                 </div>
                                 <!--end::Users-->
                                 <!--begin::Stats-->
@@ -138,11 +143,24 @@ var KTClosedReportsList = function () {
 
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         datatable.on('draw', function () {
-            KTMenu.createInstances();      
+            KTMenu.createInstances();  
+            linkRateBtn()
         });
+
+        const linkRateBtn = function () {
+
+            $('.rateBtn').on('click' , function (e) {
+                e.preventDefault()
+                reportID = $(this).attr('id')
+                
+            })
+            
+        }
+        
     }
 
-  
+   
+
 
     // Public methods
     return {

@@ -161,7 +161,7 @@ router.post('/volunteer/rate/:id', async function (req, res, next) {
     await newEvaluation.save()
 
     report.strandedEvaluation = newEvaluation._id
-    await report.save()
+    await report.save({validateBeforeSave:false})
     volunteer.rate = rate
     await volunteer.save({ validateBeforeSave: false })
     res.end()
@@ -257,6 +257,7 @@ router.get('/recive/:id', isAuthenticatedUser, async function (req, res, next) {
     if (action == 'recive') {
         report.status = 'running'
         report.volunteer = req.user._id
+        report.recivedAt = moment()
 
     } else {
         report.status = 'open'

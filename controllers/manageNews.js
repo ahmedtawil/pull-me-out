@@ -93,5 +93,13 @@ router.post('/new',isAuthenticatedUser, async function (req, res, next) {
 })
 
 
+router.get('/delete/:id', async function (req, res, next) {
+    const user = await authzUser(req)
+    const id = req.params.id
+    await News.findByIdAndDelete(id)
+    res.json({success:true})
+})
+
+
 
 module.exports = router

@@ -5,9 +5,6 @@ const _ = require('lodash');
 
 
 const reportSchema = new Schema({
-    code: {
-        type: String,
-    },
     status: {
         type:String,
         enum: ['open', 'closed', 'running', 'deleted'],
@@ -36,8 +33,8 @@ const reportSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    image: {
-        type: String,
-    },
+    recivedAt: {
+        type: Date,
+    }
 })
 module.exports = mongoose.model('Report', reportSchema)

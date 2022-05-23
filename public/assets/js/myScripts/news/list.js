@@ -167,7 +167,7 @@ var KTnewsTable = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         datatable.on('draw', function () {
             KTMenu.createInstances();
-            handleDeleteRows();
+            linkDeleteFun();
         });
     }
 
@@ -277,63 +277,57 @@ var KTnewsTable = function () {
     $(document).on('click', 'body .dropdown-menu', function (e) {
         e.stopPropagation();
     });
-    // Delete item
-    var handleDeleteRows = () => {
-        // Select all delete buttons
-        const deleteButtons = table.querySelectorAll('[data-kt-news-table-filter="delete_row"]');
 
-        deleteButtons.forEach(d => {
-            // Delete button on click
-            d.addEventListener('click', function (e) {
-                e.preventDefault();
 
-                // Select parent row
-                const parent = e.target.closest('tr');
-
-                // Get item name
-                const itemName = parent.querySelectorAll('td')[1].innerText;
-
-                // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
-                Swal.fire({
-                    text: "Are you sure you want to delete " + itemName + "?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-danger",
-                        cancelButton: "btn fw-bold btn-active-light-primary"
-                    }
-                }).then(function (result) {
-                    if (result.value) {
-                        Swal.fire({
-                            text: "You have deleted " + itemName + "!.",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        }).then(function () {
-                            // Remove current row
-                            datatable.row($(parent)).remove().draw();
-                        });
-                    } else if (result.dismiss === 'cancel') {
-                        Swal.fire({
-                            text: itemName + " was not deleted.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        });
-                    }
-                });
-            })
-        });
+    const linkDeleteFun = ()=>{
+        $('.deleteReport').on('click' , function (e) {
+            const newsID = $(this).attr('id')
+            console.log(newsID);
+              // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
+              Swal.fire({
+                text: "هل أنت متأكد من حذف الخبر ؟",
+                icon: "warning",
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: "نعم",
+                cancelButtonText: "لا",
+                customClass: {
+                    confirmButton: "btn fw-bold btn-danger",
+                    cancelButton: "btn fw-bold btn-active-light-primary"
+                }
+            }).then(function (result) {
+                if (result.value) {
+                    Swal.fire({
+                        text: "تم حذف الخبر بنجاح",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "حسناً",
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-primary",
+                        }
+                    }).then(async function () {
+                        //delete request
+    
+                        const req = await fetch(`/news/delete/${newsID}`)
+                        const res = await req.json()
+                        location.reload()
+    
+                    });
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire({
+                        text:  "تم إلغاء عملية الحذف.",
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "حسناً",
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-primary", 
+                        }
+                    });
+                }
+            });
+        })
     }
+  
 
 
 
@@ -352,7 +346,6 @@ var KTnewsTable = function () {
 
             initnewsList();
             handleSearchDatatable();
-            handleDeleteRows();
             handleFilter();
 
 
