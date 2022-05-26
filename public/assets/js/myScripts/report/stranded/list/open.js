@@ -191,7 +191,7 @@ const linkDeleteReportFun = function () {
                 }).then(async function () {
                     //delete request
 
-                    const req = await fetch(`/reports/delete/${reportID}`)
+                    const req = await fetch(`/reports/stranded/delete/${reportID}`)
                     const res = await req.json()
                     location.reload()
 

@@ -3,7 +3,7 @@ let tableQuery = {
 
 }
 // Class definition
-var KTVolunteerList = function () {
+var KTEvaluationList = function () {
     // Define shared variables
     var datatable;
     var filterMonth;
@@ -34,8 +34,8 @@ var KTVolunteerList = function () {
 
 
             "ajax": {
-                url: "/volunteers/data/get",
-                "dataSrc": 'volunteers',
+                url: "/evaluations/data/get",
+                "dataSrc": 'evaluations',
                 "dataFilter": function (res) {
                     dataRes = JSON.parse(res)
                     return res
@@ -44,94 +44,81 @@ var KTVolunteerList = function () {
 
 
             columns: [
-                { data: '' ,
-                render: function (data, type, doc) {
-                    return `<div class="d-flex align-items-center text-start">
-                    <!--begin::Wrapper-->
-                    <div class="me-5 position-relative">
-                        <!--begin::Avatar-->
-                        <div class="symbol symbol-35px symbol-circle">
-                            <span class="symbol-label bg-light-danger text-danger fw-bold">${doc.fullName[0]}</span>
-                        </div>
-                        <!--end::Avatar-->
-                    </div>
-                    <!--end::Wrapper-->
-                    <!--begin::Info-->
-                    <div class="d-flex flex-column justify-content-center">
-                        <a href="" class="mb-1 text-gray-800 text-hover-primary">${doc.fullName}</a>
-                        <div class="fw-bold fs-6 text-gray-400">${doc.email}</div>
-                    </div>
-                    <!--end::Info-->
-                </div>`
-
-                }
-             },
                 {
-                    data: 'nationalID',
-                   
-                },
-                {
-                    data: 'phoneNumber',
-                },
-                {
-                    data: 'createdAt',
+                    data: 'type',
                     render: function (data, type, doc) {
-                        return moment(data).format('YYYY/MM/DD')
-    
+                        let span
+
+                        switch (data) {
+                            case 'volToSt':
+                                span = `<span class="badge badge-light-warning">تقييم متطوع</span>`
+                                break;
+                            case 'stToVol':
+                                span = `<span class="badge badge-light-success">تقييم تقرير</span>`
+                                break;
+                        }
+
+                        return span
                     }
+
                 },
                 {
                     data: 'rate',
                     render: function (data, type, doc) {
-                        return data.toFixed(1)
+                        console.log(data);
+
+                       return `<div class="d-flex align-items-center w-200px w-sm-300px flex-column">
+                       <div class="rating">
+                           <div class="rating-label ${(data >= 1) ? 'checked' : ''} ">
+                               <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                       height="24" viewBox="0 0 24 24" fill="none">
+                                       <path
+                                           d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                           fill="black"></path>
+                                   </svg></span>
+                           </div>
+                           <div class="rating-label ${(data >= 2) ? 'checked' : ''}">
+                               <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                       height="24" viewBox="0 0 24 24" fill="none">
+                                       <path
+                                           d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                           fill="black"></path>
+                                   </svg></span>
+                           </div>
+                           <div class="rating-label ${(data >= 3) ? 'checked' : ''}">
+                               <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                       height="24" viewBox="0 0 24 24" fill="none">
+                                       <path
+                                           d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                           fill="black"></path>
+                                   </svg></span>
+                           </div>
+                           <div class="rating-label ${(data >= 4) ? 'checked' : ''}">
+                               <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                       height="24" viewBox="0 0 24 24" fill="none">
+                                       <path
+                                           d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                           fill="black"></path>
+                                   </svg></span>
+                           </div>
+                           <div class="rating-label ${(data >= 5) ? 'checked' : ''}">
+                               <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                       height="24" viewBox="0 0 24 24" fill="none">
+                                       <path
+                                           d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                           fill="black"></path>
+                                   </svg></span>
+                           </div>
+                       </div>
+                       </div>
+
+                  `
                     }
 
-                },
-                {
-                    data: 'numberOfClosedReport',
-                },
-                {
-                    data: '',
-                    render: function (data, type, doc) {
-                        return `<a href="#" class="btn btn-sm btn-light btn-active-light-primary"
-                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
-                        data-kt-menu-flip="top-end">خيارات
-                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                        <span class="svg-icon svg-icon-5 m-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <path
-                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                    fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </a>
-                    <!--begin::Menu-->
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                        data-kt-menu="true">
-                
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                         <a href="/users/profile/${doc._id}" class="menu-link px-3">البروفايل</a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                         <a href="#" class="menu-link px-3 upgrade" upgradeID="${doc._id}" >ترقيه لأدمن</a>
-                        </div>
-                        <!--end::Menu item-->
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                         <a href="#" class="menu-link px-3 delete" deleteID="${doc._id}" >حذف</a>
-                        </div>
-                        <!--end::Menu item-->               
-                    </div>
-                    <!--end::Menu-->`
-
-                    }
+                },{
+                    data:"description"
                 }
+
 
             ]
         });
@@ -139,8 +126,8 @@ var KTVolunteerList = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         datatable.on('draw', function () {
             KTMenu.createInstances();
-            linkUpgradeVolunteerFun()
-            linkDeleteVolunteerFun()
+            linkUpgradeEvaluationFun()
+            linkDeleteEvaluationFun()
         });
     }
 
@@ -252,12 +239,11 @@ var KTVolunteerList = function () {
     });
 
 
-    const linkUpgradeVolunteerFun = function () {
-
-        $('.upgrade').on('click' , function (e) {
+    const linkUpgradeEvaluationFun = function () {
+        $('.upgrade').on('click', function (e) {
             const volunteerID = $(this).attr('upgradeID')
-              // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
-              Swal.fire({
+            // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
+            Swal.fire({
                 text: "هل أنت متأكد من ترقيه المستخدم ؟",
                 icon: "warning",
                 showCancelButton: true,
@@ -280,36 +266,36 @@ var KTVolunteerList = function () {
                         }
                     }).then(async function () {
                         //delete request
-    
-                        const req = await fetch(`/volunteers/upgrade/${volunteerID}`)
+
+                        const req = await fetch(`/evaluations/upgrade/${volunteerID}`)
                         const res = await req.json()
                         location.reload()
-    
+
                     });
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
-                        text:  "تم إلغاء عملية الترقيه.",
+                        text: "تم إلغاء عملية الترقيه.",
                         icon: "error",
                         buttonsStyling: false,
                         confirmButtonText: "حسناً",
                         customClass: {
-                            confirmButton: "btn fw-bold btn-primary", 
+                            confirmButton: "btn fw-bold btn-primary",
                         }
                     });
                 }
             });
         })
-        
+
     }
 
 
 
-    const linkDeleteVolunteerFun = function () {
+    const linkDeleteEvaluationFun = function () {
 
-        $('.delete').on('click' , function (e) {
+        $('.delete').on('click', function (e) {
             const volunteerID = $(this).attr('deleteID')
-              // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
-              Swal.fire({
+            // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
+            Swal.fire({
                 text: "هل أنت متأكد من حذف المستخدم ؟",
                 icon: "warning",
                 showCancelButton: true,
@@ -332,11 +318,11 @@ var KTVolunteerList = function () {
                         }
                     }).then(async function () {
                         //delete request
-    
+
                         const req = await fetch(`/users/delete/${volunteerID}`)
                         const res = await req.json()
                         location.reload()
-    
+
                     });
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
@@ -345,16 +331,16 @@ var KTVolunteerList = function () {
                         buttonsStyling: false,
                         confirmButtonText: "حسناً",
                         customClass: {
-                            confirmButton: "btn fw-bold btn-primary", 
+                            confirmButton: "btn fw-bold btn-primary",
                         }
                     });
                 }
             });
         })
-        
+
     }
-    
-  
+
+
 
 
 
@@ -364,7 +350,7 @@ var KTVolunteerList = function () {
 
 
         init: function () {
-            table = document.querySelector('#kt_volunteers_table');
+            table = document.querySelector('#kt_evaluations_table');
 
 
             if (!table) {
@@ -382,6 +368,6 @@ var KTVolunteerList = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTVolunteerList.init();
+    KTEvaluationList.init();
 
 });

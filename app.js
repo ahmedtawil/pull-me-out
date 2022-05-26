@@ -19,6 +19,7 @@ const manageUsersController = require('./controllers/manageUsersController')
 
 const landingController = require('./controllers/landing')
 const manageNewsController = require('./controllers/manageNews')
+const manageEvaluationController = require('./controllers/evaluation')
 
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/' , authController)
 app.use('/' , landingController)
 app.use('/news', manageNewsController)
+app.use('/evaluations',isAuthenticatedUser, manageEvaluationController)
 
 app.use('/utils', utilsController)
 

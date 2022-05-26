@@ -65,10 +65,20 @@ router.get('/stranded/closed/data/get/:id', async function (req, res, next) {
 
 
 })
+
+router.get('/stranded/delete/:id', async function (req, res, next) {
+    const reportID = req.params.id
+    if (!mongoose.isValidObjectId(reportID)) return next(new ErrorHandler('bad report id!', 400))
+    await Report.updateOne({ _id: reportID }, { status: 'deleted' })
+    res.json({ success: true })
+})
+
+
 router.get('/search/page/get', async function (req, res, next) {
     res.render('report/stranded/search-report', { layout: false })
 
 })
+
 
 router.get('/stranded/page/get/:id', async function (req, res, next) {
     const strandedID = req.params.id
@@ -162,7 +172,14 @@ router.post('/volunteer/rate/:id', async function (req, res, next) {
 
     report.strandedEvaluation = newEvaluation._id
     await report.save({validateBeforeSave:false})
-    volunteer.rate = rate
+    const evaluations = await Evaluation.find({type:'stToVol' , volunteer:volunteer._id}).lean()
+    console.log(evaluations);
+
+    const sum = evaluations.reduce((x , y)=> x + y.rate , 0)
+    console.log(sum);
+    const avg = sum / evaluations.length
+    console.log(avg);
+    volunteer.rate = avg
     await volunteer.save({ validateBeforeSave: false })
     res.end()
 })
@@ -304,7 +321,7 @@ router.post('/rate/:id', isAuthenticatedUser, async function (req, res, next) {
 
     report.status = 'closed'
     report.volunteerEvaluation = newEvaluation._id
-    await report.save()
+    await report.save({ validateBeforeSave: false })
 
     volunteer.numberOfClosedReport++
     await volunteer.save({ validateBeforeSave: false })

@@ -10,7 +10,7 @@
                 <span class="h-20px border-gray-400 border-start mx-3"></span>
                 <!--end::Separator-->
                 <!--begin::Description-->
-                <small class="text-gray-500 fs-7 fw-bold my-1">المتطوعيين</small>
+                <small class="text-gray-500 fs-7 fw-bold my-1">التقييمات</small>
                 <!--end::Description-->
             </h1>
             <!--end::Title-->
@@ -31,30 +31,13 @@
             <div class="card-header border-0 pt-6">
                 <!--begin::Card title-->
                 <div class="card-title">
-                    <!--begin::Search-->
-                    <div class="d-flex align-items-center position-relative my-1">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                        <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
-                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
-                                    transform="rotate(45 17.0365 15.1223)" fill="black" />
-                                <path
-                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                    fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                        <input type="text" data-kt-volunteer-table-filter="search"
-                            class="form-control form-control-solid w-250px ps-15" placeholder="البحث عن متطوع.." />
-                    </div>
-                    <!--end::Search-->
+                 
                 </div>
                 <!--begin::Card title-->
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar">
                     <!--begin::Toolbar-->
-                    <div class="d-flex justify-content-end" data-kt-volunteer-table-toolbar="base">
+                    <div class="d-flex justify-content-end" data-kt-evaluation-table-toolbar="base">
 
                         <!--begin::Filter-->
                         <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
@@ -82,7 +65,7 @@
                             <div class="separator border-gray-200"></div>
                             <!--end::Separator-->
                             <!--begin::Content-->
-                            <div class="px-7 py-5" data-kt-volunteer-table-filter="form">
+                            <div class="px-7 py-5" data-kt-evaluation-table-filter="form">
                                 <!--begin::Input group-->
                                 <div class="mb-6">
                                     <label class="form-label fs-6 fw-bold">التاريخ</label>
@@ -105,10 +88,10 @@
                                 <div class="d-flex justify-content-end">
                                     <button type="reset"
                                         class="btn btn-light btn-active-light-primary fw-bold me-2 px-6"
-                                        data-kt-menu-dismiss="true" data-kt-volunteer-table-filter="reset">مسح</button>
+                                        data-kt-menu-dismiss="true" data-kt-evaluation-table-filter="reset">مسح</button>
                                     <button type="submit" class="btn btn-primary fw-bold px-6"
                                         data-kt-menu-dismiss="true"
-                                        data-kt-volunteer-table-filter="filter">تطبيق</button>
+                                        data-kt-evaluation-table-filter="filter">تطبيق</button>
                                 </div>
                                 <!--end::Actions-->
                             </div>
@@ -129,18 +112,14 @@
             <!--begin::Card body-->
             <div class="card-body pt-0">
                 <!--begin::Table-->
-                <table class="text-center table align-middle table-row-dashed fs-6 gy-5" id="kt_volunteers_table">
+                <table class="text-center table align-middle table-row-dashed fs-6 gy-5" id="kt_evaluations_table">
                     <!--begin::Table head-->
                     <thead>
                         <!--begin::Table row-->
                         <tr class="text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                            <th class="text-start" style="width:15% !important;">المتطوع</th>
-                            <th>الهوية الوطنية</th>
-                            <th>رقم الجوال</th>
-                            <th>تاريخ التطوع</th>
-                            <th>التقييم</th>
-                            <th>التقارير المغلقة</th>
-                            <th>الخيارات</th>
+                            <th>نوع التقييم</th>
+                            <th class="text-center">النسبه</th>
+                            <th>الملاحظات</th>
                         </tr>
                         <!--end::Table row-->
                     </thead>
@@ -166,12 +145,12 @@
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Vendors Javascript(used by this page)-->
 <script src="/assets/plugins/custom/leaflet/leaflet.bundle.js"></script>
-<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script> 
 <!--end::Page Vendors Javascript-->
 
 
 <!--begin::Page Custom Javascript(used by this page)-->
-<script src="/assets/js/myScripts/volunteer/list.js"></script>
+<script src="/assets/js/myScripts/evaluation/list.js"></script>
 
 
 <!--end::Page Custom Javascript-->
