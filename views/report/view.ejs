@@ -382,7 +382,22 @@
                 <!--end::Details-->
             </div>
         </div>
-        
+        <div class="card my-5 mb-xl-10">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bolder text-dark">الملفات</span>
+                    <span class="text-muted mt-1 fw-bold fs-7">الصور</span>
+                </h3>
+               
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-9 pb-5" >
+                    <center><img src="<%= report.image %>" class="mx-auto" style="border:0; width: 60%;" alt="no preview" srcset=""></center>
+            </div>
+            <!--end::Card body-->
+        </div>
         <div class="card my-5 mb-xl-10">
             <input type="hidden" id="latitude" value="<%= report.location.latitude %>">
             <input type="hidden" id="longitude" value="<%= report.location.longitude %>">

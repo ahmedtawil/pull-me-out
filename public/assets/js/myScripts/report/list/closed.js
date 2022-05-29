@@ -32,6 +32,7 @@ var KTClosedReportsList = function () {
                 "dataSrc": 'reports',
                 "dataFilter": function (res) {
                     dataRes = JSON.parse(res)
+                    console.log(dataRes);
                     CITIES = dataRes.CITIES
                     REPORTS_TYPES = dataRes.REPORTS_TYPES        
                     $('#closedCaseCounter').text(dataRes.recordsTotal)

@@ -173,12 +173,8 @@ router.post('/volunteer/rate/:id', async function (req, res, next) {
     report.strandedEvaluation = newEvaluation._id
     await report.save({validateBeforeSave:false})
     const evaluations = await Evaluation.find({type:'stToVol' , volunteer:volunteer._id}).lean()
-    console.log(evaluations);
-
     const sum = evaluations.reduce((x , y)=> x + y.rate , 0)
-    console.log(sum);
     const avg = sum / evaluations.length
-    console.log(avg);
     volunteer.rate = avg
     await volunteer.save({ validateBeforeSave: false })
     res.end()
